@@ -1,10 +1,17 @@
 @php
     $links = [
         [
-            'icon' => 'fa-solid fa-chart-line',
             'name' => 'Dashboard',
+            'icon' => 'fa-solid fa-chart-line',
             'route' => route('admin.dashboard'),
             'active' => request()->routeIs('admin.dashboard')
+        ], 
+        [
+            //Familia de productos
+            'name' => 'Familias',
+            'icon' => 'fa-solid fa-layer-group',
+            'route' => route('admin.families.index'),
+            'active' => request()->routeIs('admin.families.*')
         ], 
     ];   
 @endphp
