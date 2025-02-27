@@ -13,7 +13,7 @@ class FamilyController extends Controller
      */
     public function index()
     {
-        $families = Family::paginate();
+        $families = Family::paginate(10);
         return view('admin.families.index', compact('families'));
     }
 
@@ -35,6 +35,15 @@ class FamilyController extends Controller
         ]);
 
         Family::create($validated);
+
+        session()->flash('swal', [
+            'title' => "¡Familia creada!",
+            'text' => "La familia $request->name ahora está disponible",
+            'icon' => "success",
+            'draggable' => true,
+            'timer' => 1600,
+            'timerProgressBar' => true
+        ]);
 
         return redirect()->route('admin.families.create');
     }
@@ -66,6 +75,12 @@ class FamilyController extends Controller
 
         $family->update($validated);
 
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Familia actualizada!',
+            'text' => "La familia $family->name ha sido actualizada correctamente"
+        ]);
+
         return redirect()->route('admin.families.edit', $family);
     }
 
@@ -74,7 +89,23 @@ class FamilyController extends Controller
      */
     public function destroy(Family $family)
     {
+        if($family->categories->count() > 0){
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => '¡Ups!',
+                'text' => "No se puede eliminar la familia $family->name, porque tiene categorias asociadas"
+            ]);
+
+            return redirect()->route('admin.families.index');
+        }
+
         $family->delete();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Familia eliminada!',
+            'text' => "La familia $family->name ha sido eliminada correctamente"
+        ]);
 
         return redirect()->route('admin.families.index');
     }

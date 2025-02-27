@@ -13,6 +13,18 @@
             'route' => route('admin.families.index'),
             'active' => request()->routeIs('admin.families.*')
         ], 
+        [
+            'name' => 'Categorias',
+            'icon' => 'fa-solid fa-tags',
+            'route' => route('admin.categories.index'),
+            'active' => request()->routeIs('admin.categories.*')
+        ], 
+        [
+            'name' => 'SubCategorias',
+            'icon' => 'fa-solid fa-list',
+            'route' => route('admin.subcategories.index'),
+            'active' => request()->routeIs('admin.subcategories.*')
+        ], 
     ];   
 @endphp
 
