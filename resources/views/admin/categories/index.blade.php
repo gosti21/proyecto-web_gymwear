@@ -4,17 +4,17 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Familias',
+        'name' => 'Categorias',
     ],
 ]">
 
     <x-slot name="action">
-        <a class="btn btn-blue" href="{{ route('admin.families.create') }}">
+        <a class="btn btn-blue" href="{{ route('admin.categories.create') }}">
             Crear
         </a>
     </x-slot>
-    
-    @if ($families->count())
+
+    @if ($categories->count())
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -26,28 +26,34 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Familia
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Acciones
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($families as $index => $family)
+                    @foreach ($categories as $index => $category)
                         <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600 {{ !$loop->last ? 'border-b dark:border-gray-700 border-gray-200' : ''}}">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ ($families->currentPage() - 1) * $families->perPage() + $index + 1 }}
+                                {{ ($categories->currentPage() - 1) * $categories->perPage() + $index + 1 }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $family->name }}
+                                {{ $category->name }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $category->family->name }}
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex justify-between">
-                                    <a href="{{ route('admin.families.edit', $family) }}" class="font-medium text-blue-600 dark:text-blue-500">
+                                    <a href="{{ route('admin.categories.edit', $category) }}" class="font-medium text-blue-600 dark:text-blue-500">
                                         <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                     </a>
-                                    <form action="{{ route('admin.families.destroy', $family) }}" method="POST" id="delete-form-{{ $family->id }}">
+                                    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" id="delete-form-{{ $category->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="font-medium text-red-600 dark:text-red-500" onclick="confirmDelte({{ $family->id }})">
+                                        <button type="button" class="font-medium text-red-600 dark:text-red-500" onclick="confirmDelte({{ $category->id }})">
                                             <i class="fa-solid fa-trash-can fa-lg"></i>
                                         </button>
                                     </form>
@@ -58,9 +64,9 @@
                 </tbody>
             </table>
         </div>
-        @if($families->lastPage() > 1)
+        @if($categories->lastPage() > 1)
             <div class="mt-4">
-                {{ $families->links() }}
+                {{ $categories->links() }}
             </div>
         @endif
     @else
@@ -70,7 +76,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Alerta Informativa!</span> Todavía no hay familias de productos registrados.
+                <span class="font-medium">Alerta Informativa!</span> Todavía no hay categorias registradas.
             </div>
         </div>
     @endif
