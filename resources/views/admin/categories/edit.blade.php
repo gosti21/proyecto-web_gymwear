@@ -4,7 +4,7 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Categorias',
+        'name' => 'Categorías',
         'route' => route('admin.categories.index'),
     ],
     [

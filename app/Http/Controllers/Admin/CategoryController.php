@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
         session()->flash('swal', [
             'title' => "¡Categoría creada!",
-            'text' => "La categorias $request->name ahora está disponible",
+            'text' => "La categoría $request->name ahora está disponible",
             'icon' => "success",
             'draggable' => true,
             'timer' => 1600,
@@ -100,7 +100,7 @@ class CategoryController extends Controller
             session()->flash('swal', [
                 'icon' => 'error',
                 'title' => '¡Ups!',
-                'text' => "No se puede eliminar la categoría $category->name, porque tiene subcategorias asociadas",
+                'text' => "No se puede eliminar la categoría $category->name, porque tiene subcategorías asociadas",
                 'timer' => 1600,
                 'timerProgressBar' => true
             ]);

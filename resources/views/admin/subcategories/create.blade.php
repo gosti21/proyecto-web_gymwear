@@ -4,8 +4,8 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Categorías',
-        'route' => route('admin.categories.index'),
+        'name' => 'SubCategorías',
+        'route' => route('admin.subcategories.index'),
     ],
     [
         'name' => 'Crear',
@@ -13,22 +13,22 @@
 ]">
 
     <div class="card card-color">
-        <form action="{{ route('admin.categories.store') }}" method="POST">
+        <form action="{{ route('admin.subcategories.store') }}" method="POST">
             @csrf
 
             <x-validation-errors class="mb-4" />
 
             <div class="mb-4">
                 <x-label class="mb-2">
-                    Familias
+                    Categorias
                 </x-label>
 
-                <x-select name="family_id">
-                    <option disabled selected>Selecciona una familia </option>
-                    @foreach ($families as $family)
-                        <option value="{{ $family->id }}"
-                            @selected(old('family_id') == $family->id)>
-                            {{ $family->name }}
+                <x-select name="category_id">
+                    <option disabled selected>Selecciona una categoría </option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            @selected(old('category_id') == $category->id)>
+                            {{ $category->name }}
                         </option>
                     @endforeach
                 </x-select>
@@ -39,7 +39,7 @@
                     Nombre
                 </x-label>
                 <x-input class="w-full" 
-                    placeholder="Ingrese el nombre de la categoría" 
+                    placeholder="Ingrese el nombre de la subcategoría" 
                     name="name" value="{{ old('name') }}"/>
             </div>
             <div class="flex justify-end">

@@ -95,7 +95,7 @@ class FamilyController extends Controller
             session()->flash('swal', [
                 'icon' => 'error',
                 'title' => '¡Ups!',
-                'text' => "No se puede eliminar la familia $family->name, porque tiene categorias asociadas",
+                'text' => "No se puede eliminar la familia $family->name, porque tiene categorías asociadas",
                 'timer' => 1600,
                 'timerProgressBar' => true
             ]);
