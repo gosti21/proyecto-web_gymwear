@@ -10,7 +10,7 @@
                         </a>
                     @else
                         <i class="{{ !$loop->first ? 'fa-solid fa-angle-right text-gray-400 mx-1' : ''}}"></i>
-                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none {{ !$loop->first ? 'md:ms-2' : ''}}">
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none {{ !$loop->first ? 'md:ms-2' : ''}}" id="breadcrumb-edit">
                             {{$breadcrumb['name']}}
                         </span>
                     @endisset

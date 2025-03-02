@@ -87,4 +87,24 @@
         </div>
     @endif
 
+    @push('js')
+        <script>
+            function confirmDelte(familyId){
+                Swal.fire({
+                    title: "¿Estas seguro?",
+                    text: "¡No podrás revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete-form-' + familyId).submit();
+                    }
+                });
+            }
+        </script>
+    @endpush
 </x-admin-layout>

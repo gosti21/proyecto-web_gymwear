@@ -23,8 +23,7 @@ class SubCategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.subcategories.create', compact('categories'));
+        return view('admin.subcategories.create');
     }
 
     /**
@@ -32,7 +31,7 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        /* $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'name' => 'required'
         ]);
@@ -48,7 +47,7 @@ class SubCategoryController extends Controller
             'timerProgressBar' => true
         ]);
 
-        return redirect()->route('admin.subcategories.create');
+        return redirect()->route('admin.subcategories.create'); */
     }
 
     /**
@@ -62,9 +61,9 @@ class SubCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SubCategory $subCategory)
+    public function edit(SubCategory $subcategory)
     {
-        //
+        return view('admin.subcategories.edit', compact('subcategory'));
     }
 
     /**
@@ -78,8 +77,30 @@ class SubCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy(SubCategory $subcategory)
     {
-        //
+        if ($subcategory->products()->count() > 0) {
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => '¡Ups!',
+                'text' => "No se puede eliminar la subcategoría $subcategory->name, porque tiene productos asociadas",
+                'timer' => 1600,
+                'timerProgressBar' => true
+            ]);
+
+            return redirect()->route('admin.categories.index');
+        }
+
+        $subcategory->delete();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡SubCategoría eliminada!',
+            'text' => "La subcategoría $subcategory->name ha sido eliminada correctamente",
+            'timer' => 1600,
+            'timerProgressBar' => true
+        ]);
+
+        return redirect()->route('admin.subcategories.index');
     }
 }
