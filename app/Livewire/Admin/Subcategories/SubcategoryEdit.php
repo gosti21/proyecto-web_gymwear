@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Subcategories;
 
 use App\Models\Category;
 use App\Models\Family;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -50,8 +51,21 @@ class SubcategoryEdit extends Component
         $this->validate([
             'subcategoryEdit.family_id' => 'required|exists:families,id',
             'subcategoryEdit.category_id' => 'required|exists:categories,id',
-            'subcategoryEdit.name' => 'required',
-        ], [], [
+            'subcategoryEdit.name' => [
+                'required',
+                'string',
+                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
+                'between:3,60',
+                Rule::unique('sub_categories', 'name')
+                    ->where(fn($query) => $query->where('category_id', $this->subcategoryEdit['category_id']))
+                    ->ignore($this->subcategory->id)
+            ],
+        ], 
+        [
+            'subcategoryEdit.name.regex' => 'El campo nombre solo puede contener letras y espacios.',
+            'subcategoryEdit.name.unique' => 'El nombre ya está relacionado con esta categoria.'
+        ], 
+        [
             'subcategoryEdit.family_id' => 'familia',
             'subcategoryEdit.category_id' => 'categoria',
             'subcategoryEdit.name' => 'nombre',

@@ -5,12 +5,15 @@ namespace App\Livewire\Admin\Subcategories;
 use App\Models\Category;
 use App\Models\Family;
 use App\Models\SubCategory;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class SubcategoryCreate extends Component
 {
     public $families;
+    
     public $subCategory = [
         'family_id' => '',
         'category_id' => '',
@@ -44,8 +47,19 @@ class SubcategoryCreate extends Component
         $this->validate([
             'subCategory.family_id' => 'required|exists:families,id',
             'subCategory.category_id' => 'required|exists:categories,id',
-            'subCategory.name' => 'required',
-        ],[],[
+            'subCategory.name' => [
+                'required',
+                'string',
+                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
+                'between:3,60',
+                Rule::unique('sub_categories', 'name')->where(fn(Builder $query) => $query->where('category_id', $this->subCategory['category_id']))
+            ],
+        ],
+        [
+            'subCategory.name.regex' => 'El campo nombre solo puede contener letras y espacios.',
+            'subCategory.name.unique' => 'El nombre ya está relacionado con esta categoria.'
+        ],
+        [
             'subCategory.family_id' => 'familia',
             'subCategory.category_id' => 'categoria',
             'subCategory.name' => 'nombre',

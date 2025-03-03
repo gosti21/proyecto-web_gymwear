@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Family\StoreFamilyRequest;
+use App\Http\Requests\Admin\Family\UpdateFamilyRequest;
 use App\Models\Family;
 use Illuminate\Http\Request;
 
@@ -28,13 +30,10 @@ class FamilyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFamilyRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required'
-        ]);
 
-        Family::create($validated);
+        Family::create($request->all());
 
         session()->flash('swal', [
             'title' => "¡Familia creada!",
@@ -67,13 +66,10 @@ class FamilyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Family $family)
+    public function update(UpdateFamilyRequest $request, Family $family)
     {
-        $validated = $request->validate([
-            'name' => 'required'
-        ]);
 
-        $family->update($validated);
+        $family->update($request->all());
 
         session()->flash('swal', [
             'icon' => 'success',
@@ -95,7 +91,7 @@ class FamilyController extends Controller
             session()->flash('swal', [
                 'icon' => 'error',
                 'title' => '¡Ups!',
-                'text' => "No se puede eliminar la familia $family->name, porque tiene categorías asociadas",
+                'text' => "No se puede eliminar la familia $family->name, porque tiene categoríñas asociadas",
                 'timer' => 1600,
                 'timerProgressBar' => true
             ]);

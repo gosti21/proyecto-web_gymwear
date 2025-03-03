@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Category\StoreCategoryRequest;
+use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Models\Family;
 use Illuminate\Http\Request;
@@ -30,14 +32,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $validated = $request->validate([
-            'family_id' => 'required|exists:families,id',
-            'name' => 'required'
-        ]);
 
-        Category::create($validated);
+        Category::create($request->all());
 
         session()->flash('swal', [
             'title' => "¡Categoría creada!",
@@ -71,14 +69,10 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $validated = $request->validate([
-            'family_id' => 'required|exists:families,id',
-            'name' => 'required'
-        ]);
 
-        $category->update($validated);
+        $category->update($request->all());
 
         session()->flash('swal', [
             'icon' => 'success',

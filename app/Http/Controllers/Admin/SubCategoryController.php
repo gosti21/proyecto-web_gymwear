@@ -31,23 +31,7 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        /* $validated = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'name' => 'required'
-        ]);
-
-        SubCategory::create($validated);
-
-        session()->flash('swal', [
-            'title' => "¡SubCategoría creada!",
-            'text' => "La subcategoría $request->name ahora está disponible",
-            'icon' => "success",
-            'draggable' => true,
-            'timer' => 1600,
-            'timerProgressBar' => true
-        ]);
-
-        return redirect()->route('admin.subcategories.create'); */
+        //
     }
 
     /**

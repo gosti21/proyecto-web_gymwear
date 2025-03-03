@@ -17,9 +17,10 @@
 
     @push('js')
         <script>
-        Livewire.on('subcategoryUpdated', newName => {
-            document.getElementById('breadcrumb-edit').innerText = 'Editar - ' + newName;
-        });
-    </script>
+            Livewire.on('subcategoryUpdated', newName => {
+                document.getElementById('breadcrumb-edit').innerText = 'Editar - ' + newName;
+            });
+        </script>
     @endpush
+
 </x-admin-layout>

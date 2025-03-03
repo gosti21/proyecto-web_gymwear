@@ -278,5 +278,11 @@ return [
         'winner'                   => 'ganador',
         'work'                     => 'trabajo',
         'year'                     => 'año',
+        'family_id'                => 'familia',
+    ],
+    'custom' => [
+        'name' => [
+            'regex' => 'El campo nombre solo puede contener letras y espacios.',
+        ],
     ],
 ];
