@@ -5,86 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Repositories\Admin\BaseRepository;
 use Illuminate\Http\Request;
 
-class SubCategoryController extends Controller
+class SubCategoryController extends BaseAdminController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct()
     {
-        $subCategories = SubCategory::with('category.family')->paginate();
-        return view('admin.subcategories.index', compact('subCategories'));
-    }
+        $model = new SubCategory();
+        $viewName = 'subcategories';
+        $relationships = [
+            'category.family',
+        ];
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.subcategories.create');
-    }
+        $repository = new BaseRepository($model, $viewName, $relationships);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $repository->setRelationChecker(function ($subcategory) {
+            return $subcategory->products()->count() > 0;
+        });
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SubCategory $subCategory)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SubCategory $subcategory)
-    {
-        return view('admin.subcategories.edit', compact('subcategory'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SubCategory $subCategory)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SubCategory $subcategory)
-    {
-        if ($subcategory->products()->count() > 0) {
-            session()->flash('swal', [
-                'icon' => 'error',
-                'title' => '¡Ups!',
-                'text' => "No se puede eliminar la subcategoría $subcategory->name, porque tiene productos asociadas",
-                'timer' => 1600,
-                'timerProgressBar' => true
-            ]);
-
-            return redirect()->route('admin.categories.index');
-        }
-
-        $subcategory->delete();
-
-        session()->flash('swal', [
-            'icon' => 'success',
-            'title' => '¡SubCategoría eliminada!',
-            'text' => "La subcategoría $subcategory->name ha sido eliminada correctamente",
-            'timer' => 1600,
-            'timerProgressBar' => true
-        ]);
-
-        return redirect()->route('admin.subcategories.index');
+        parent::__construct($repository);
     }
 }

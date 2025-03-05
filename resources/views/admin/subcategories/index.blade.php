@@ -12,19 +12,19 @@
         @include('admin.partials.create-button', ['route' => route('admin.subcategories.create')])
     </x-slot>
 
-    @if ($subCategories->count())
+    @if ($data->count())
 
         @include('admin.partials.table', [
             'headers' => ['#', 'Nombre', 'Categoria', 'Familia', 'Acciones'],
             'columns' => ['name', 'category->name', 'category->family->name'], 
-            'items' => $subCategories, 
+            'items' => $data, 
             'editRoute' => 'admin.subcategories.edit',
             'deleteRoute' => 'admin.subcategories.destroy'
         ])
 
-        @if($subCategories->lastPage() > 1)
+        @if($data->lastPage() > 1)
             <div class="mt-4">
-                {{ $subCategories->links() }}
+                {{ $data->links() }}
             </div>
         @endif
 

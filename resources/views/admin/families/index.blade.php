@@ -12,19 +12,19 @@
         @include('admin.partials.create-button', ['route' => route('admin.families.create')])
     </x-slot>
     
-    @if ($families->count())
+    @if ($data->count())
         
         @include('admin.partials.table', [
             'headers' => ['#', 'Nombre', 'Acciones'],
             'columns' => ['name'], 
-            'items' => $families, 
+            'items' => $data, 
             'editRoute' => 'admin.families.edit',
             'deleteRoute' => 'admin.families.destroy'
         ])
 
-        @if($families->lastPage() > 1)
+        @if($data->lastPage() > 1)
             <div class="mt-4">
-                {{ $families->links() }}
+                {{ $data->links() }}
             </div>
         @endif
         

@@ -8,12 +8,12 @@
         'route' => route('admin.subcategories.index'),
     ],
     [
-        'name' => 'Editar - ' . $subcategory->name,
+        'name' => 'Editar - ' . $data->name,
         
     ],
 ]">
 
-    @livewire('admin.subcategories.subcategory-edit', compact('subcategory'))
+    @livewire('admin.subcategories.subcategory-edit', compact('data'))
 
     @push('js')
         <script>

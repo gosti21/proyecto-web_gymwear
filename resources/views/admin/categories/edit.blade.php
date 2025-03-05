@@ -8,12 +8,12 @@
         'route' => route('admin.categories.index'),
     ],
     [
-        'name' => 'Editar - ' . $category->name,
+        'name' => 'Editar - ' . $data->name,
     ],
 ]">
 
     <div class="card card-color">
-        <form action="{{ route('admin.categories.update', $category) }}" method="POST" id="edit-form">
+        <form action="{{ route('admin.categories.update', $data) }}" method="POST" id="edit-form">
             @csrf
             @method('PATCH')
 
@@ -28,7 +28,7 @@
                     <option disabled selected>Selecciona una familia </option>
                     @foreach ($families as $family)
                         <option value="{{ $family->id }}"
-                            @selected(old('family_id', $category->family_id) == $family->id)>
+                            @selected(old('family_id', $data->family_id) == $family->id)>
                             {{ $family->name }}
                         </option>
                     @endforeach
@@ -41,7 +41,7 @@
                 </x-label>
                 <x-input class="w-full" 
                     placeholder="Ingrese el nombre de la categoría" 
-                    name="name" value="{{ old('name', $category->name) }}"/>
+                    name="name" value="{{ old('name', $data->name) }}"/>
             </div>
             <div class="flex justify-end">
                 <x-button type="button" onclick="confirmEdit()">

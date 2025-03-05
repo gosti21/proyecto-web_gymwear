@@ -12,7 +12,7 @@ class SubcategoryEdit extends Component
 {
     public $families;
 
-    public $subcategory;
+    public $data;
 
     public $subcategoryEdit;
 
@@ -21,14 +21,14 @@ class SubcategoryEdit extends Component
     /**
      * Se ejectura ni bien se cargue el componente  
      */
-    public function mount($subcategory)
+    public function mount($data)
     {
         $this->families = Family::all();
 
         $this->subcategoryEdit = [
-            'family_id' => $subcategory->category->family_id,
-            'category_id' => $subcategory->category_id,
-            'name' => $subcategory->name
+            'family_id' => $data->category->family_id,
+            'category_id' => $data->category_id,
+            'name' => $data->name
         ];
     }
 
@@ -58,7 +58,7 @@ class SubcategoryEdit extends Component
                 'between:3,60',
                 Rule::unique('sub_categories', 'name')
                     ->where(fn($query) => $query->where('category_id', $this->subcategoryEdit['category_id']))
-                    ->ignore($this->subcategory->id)
+                    ->ignore($this->data->id)
             ],
         ], 
         [
@@ -71,7 +71,7 @@ class SubcategoryEdit extends Component
             'subcategoryEdit.name' => 'nombre',
         ]);
 
-        $this->subcategory->update($this->subcategoryEdit);
+        $this->data->update($this->subcategoryEdit);
 
         $this->dispatch('subcategoryUpdated', $this->subcategoryEdit['name']);
         
@@ -82,9 +82,6 @@ class SubcategoryEdit extends Component
             'timer' => 1600,
             'timerProgressBar' => true
         ]);
-
-        
-        
     }
 
     public function render()
