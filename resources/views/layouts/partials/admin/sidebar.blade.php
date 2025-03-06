@@ -25,6 +25,12 @@
             'route' => route('admin.subcategories.index'),
             'active' => request()->routeIs('admin.subcategories.*')
         ], 
+        [
+            'name' => 'Productos',
+            'icon' => 'fa-solid fa-boxes-stacked',
+            'route' => route('admin.products.index'),
+            'active' => request()->routeIs('admin.products.*')
+        ], 
     ];   
 @endphp
 
@@ -39,7 +45,7 @@
         <ul class="space-y-2 font-medium">
             @foreach ($links as $link)
                 @php
-                    $activeClass = $link['active'] ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white pointer-events-none cursor-default' : '';   
+                    $activeClass = $link['active'] ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : '';   
                 @endphp
                 <li>
                     <a href="{{$link['route']}}"
