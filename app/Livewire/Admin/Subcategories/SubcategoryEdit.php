@@ -10,11 +10,12 @@ use Livewire\Component;
 
 class SubcategoryEdit extends Component
 {
+    public $data;
     public $families;
 
-    public $data;
-
-    public $subcategoryEdit;
+    public $family_id = '';
+    public $category_id = '';
+    public $name = '';
 
     protected $listeners = ['save' => 'save'];
 
@@ -25,63 +26,72 @@ class SubcategoryEdit extends Component
     {
         $this->families = Family::all();
 
-        $this->subcategoryEdit = [
-            'family_id' => $data->category->family_id,
-            'category_id' => $data->category_id,
-            'name' => $data->name
-        ];
+        $this->family_id = $data->category->family_id;
+        $this->category_id = $data->category_id;
+        $this->name = $data->name;
     }
 
     /**
      * Ciclo de vida del componente
      */
-    public function updatedSubCategoryEditFamilyId()
+    public function updatedFamilyId()
     {
-        $this->subcategoryEdit['category_id'] = '';
+        $this->reset('category_id');
     }
 
     #[Computed()]
     public function categories()
     {
-        return Category::where('family_id', $this->subcategoryEdit['family_id'])->get();
+        return Category::where('family_id', $this->family_id)->get();
     }
 
     public function save()
     {
-        $this->validate([
-            'subcategoryEdit.family_id' => 'required|exists:families,id',
-            'subcategoryEdit.category_id' => 'required|exists:categories,id',
-            'subcategoryEdit.name' => [
-                'required',
-                'string',
-                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
-                'between:3,60',
-                Rule::unique('sub_categories', 'name')
-                    ->where(fn($query) => $query->where('category_id', $this->subcategoryEdit['category_id']))
-                    ->ignore($this->data->id)
-            ],
-        ], 
-        [
-            'subcategoryEdit.name.regex' => 'El campo nombre solo puede contener letras y espacios.',
-            'subcategoryEdit.name.unique' => 'El nombre ya está relacionado con esta categoria.'
-        ], 
-        [
-            'subcategoryEdit.family_id' => 'familia',
-            'subcategoryEdit.category_id' => 'categoria',
-            'subcategoryEdit.name' => 'nombre',
+        $this->validateData();
+
+        $this->data->update([
+            'family_id'   => $this->family_id,
+            'category_id' => $this->category_id,
+            'name'        => $this->name,
         ]);
 
-        $this->data->update($this->subcategoryEdit);
-
-        $this->dispatch('subcategoryUpdated', $this->subcategoryEdit['name']);
+        $this->dispatch('subcategoryUpdated', $this->name);
         
         $this->dispatch('swal', [
             'icon' => 'success',
-            'title' => '¡Categororía actualizada!',
-            'text' => "La categoría " . $this->subcategoryEdit['name'] . " ha sido actualizada correctamente",
+            'title' => '¡Registro actualizado!',
+            'text' => "El registro ha sido actualizado correctamente",
             'timer' => 1600,
             'timerProgressBar' => true
         ]);
+    }
+
+    public function validateData()
+    {
+        $this->validate(
+            [
+                'family_id' => 'required|exists:families,id',
+                'category_id' => 'required|exists:categories,id',
+                'name' => [
+                    'required',
+                    'string',
+                    'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
+                    'between:3,60',
+                    Rule::unique('sub_categories', 'name')
+                        ->where(fn($query) => $query->where('category_id', $this->category_id))
+                        ->ignore($this->data->id)
+                ],
+            ],
+            [
+                'name.regex' => 'El campo nombre solo puede contener letras y espacios.',
+                'name.unique' => 'El nombre ya está relacionado con esta categoria.'
+            ],
+            [
+                'family_id' => 'familia',
+                'category_id' => 'categoria',
+                'name' => 'nombre',
+            ]
+        );
     }
 
     public function render()

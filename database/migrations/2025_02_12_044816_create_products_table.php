@@ -16,11 +16,13 @@ return new class extends Migration
 
             $table->string('sku', length: 10)->unique();
             $table->string('name', length: 80);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->decimal('price', total:8 , places:2);
 
             $table->foreignId('sub_category_id')->constrained();
-            
+
+            $table->unique(['name', 'sub_category_id']);
+
             $table->timestamps();
         });
     }

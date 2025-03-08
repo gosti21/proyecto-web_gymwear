@@ -4,15 +4,15 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'SubCategorías',
-        'route' => route('admin.subcategories.index'),
+        'name' => 'Productos',
+        'route' => route('admin.products.index'),
     ],
     [
         'name' => 'Editar - ' . $data->name,
     ],
 ]">
 
-    @livewire('admin.subcategories.subcategory-edit', compact('data'))
+    @livewire('admin.products.product-edit', compact('data'))
 
     @push('js')
         <script>

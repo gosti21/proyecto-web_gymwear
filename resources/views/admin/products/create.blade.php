@@ -12,5 +12,6 @@
     ],
 ]">
 
+    @livewire('admin.products.product-create')
 
 </x-admin-layout>

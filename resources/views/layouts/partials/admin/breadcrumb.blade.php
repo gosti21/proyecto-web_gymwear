@@ -1,6 +1,6 @@
 @if (count($breadcrumbs))    
-    <nav class="flex mb-3" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+    <nav class="mb-2" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse flex-wrap">
             @foreach ($breadcrumbs as $breadcrumb)
                 <li class="leading-normal {{ !$loop->first ? 'flex items-center' : ''}}" @if ($loop->last) aria-current="page" @endif>
                     @isset($breadcrumb['route'])
@@ -10,12 +10,17 @@
                         </a>
                     @else
                         <i class="{{ !$loop->first ? 'fa-solid fa-angle-right text-gray-400 mx-1' : ''}}"></i>
-                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none {{ !$loop->first ? 'md:ms-2' : ''}}" id="breadcrumb-edit">
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none {{ !$loop->first ? 'md:ms-2' : ''}} breadcrumb-edit">
                             {{$breadcrumb['name']}}
                         </span>
                     @endisset
                 </li>
             @endforeach
         </ol>
+        @if(count($breadcrumbs) > 1)
+            <h6 class="font-bold dark:text-white breadcrumb-edit">
+                {{ end($breadcrumbs)['name'] }}
+            </h6>
+        @endif
     </nav>
 @endif

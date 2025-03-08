@@ -13,12 +13,10 @@ use Livewire\Component;
 class SubcategoryCreate extends Component
 {
     public $families;
-    
-    public $subCategory = [
-        'family_id' => '',
-        'category_id' => '',
-        'name' => ''
-    ];
+
+    public $family_id = '';
+    public $category_id = '';
+    public $name = '';
 
     /**
      * Se ejectura ni bien se cargue el componente  
@@ -31,45 +29,30 @@ class SubcategoryCreate extends Component
     /**
      * Ciclo de vida del componente
      */
-    public function updatedSubCategoryFamilyId()
+    public function updatedFamilyId()
     {
-        $this->subCategory['category_id'] = '';
+        $this->reset('category_id');
     }
 
     #[Computed()]
     public function categories()
     {
-        return Category::where('family_id', $this->subCategory['family_id'])->get();
+        return Category::where('family_id', $this->family_id)->get();
     }
 
     public function save()
     {
-        $this->validate([
-            'subCategory.family_id' => 'required|exists:families,id',
-            'subCategory.category_id' => 'required|exists:categories,id',
-            'subCategory.name' => [
-                'required',
-                'string',
-                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
-                'between:3,60',
-                Rule::unique('sub_categories', 'name')->where(fn(Builder $query) => $query->where('category_id', $this->subCategory['category_id']))
-            ],
-        ],
-        [
-            'subCategory.name.regex' => 'El campo nombre solo puede contener letras y espacios.',
-            'subCategory.name.unique' => 'El nombre ya está relacionado con esta categoria.'
-        ],
-        [
-            'subCategory.family_id' => 'familia',
-            'subCategory.category_id' => 'categoria',
-            'subCategory.name' => 'nombre',
+        $this->validateData();        
+
+        SubCategory::create([
+            'family_id'   => $this->family_id,
+            'category_id' => $this->category_id,
+            'name'        => $this->name,
         ]);
 
-        SubCategory::create($this->subCategory);
-
         session()->flash('swal', [
-            'title' => "¡SubCategoría creada!",
-            'text' => "La subcategoría " . $this->subCategory['name'] . " ahora está disponible",
+            'title' => "¡Registro creado!",
+            'text' => "El registro ha sido creado correctamente",
             'icon' => "success",
             'draggable' => true,
             'timer' => 1600,
@@ -77,6 +60,32 @@ class SubcategoryCreate extends Component
         ]);
 
         return redirect()->route('admin.subcategories.create');
+    }
+
+    public function validateData()
+    {
+        $this->validate(
+            [
+                'family_id' => 'required|exists:families,id',
+                'category_id' => 'required|exists:categories,id',
+                'name' => [
+                    'required',
+                    'string',
+                    'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
+                    'between:3,60',
+                    Rule::unique('sub_categories', 'name')->where(fn(Builder $query) => $query->where('category_id', $this->category_id))
+                ],
+            ],
+            [
+                'name.regex' => 'El campo nombre solo puede contener letras y espacios.',
+                'name.unique' => 'El nombre ya está relacionado con esta categoria.'
+            ],
+            [
+                'family_id' => 'familia',
+                'category_id' => 'categoría',
+                'name' => 'nombre',
+            ]
+        );
     }
 
     public function render()
