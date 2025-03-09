@@ -80,7 +80,8 @@ class BaseRepository implements RepositoryInterface
      */
     public function show(int $id)
     {
-        //
+        $data = $this->model::findOrFail($id);
+        return view("admin.{$this->viewName}.show", compact('data'));
     }
 
     /**

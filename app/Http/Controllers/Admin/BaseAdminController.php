@@ -44,7 +44,7 @@ abstract class BaseAdminController extends Controller
      */
     public function show(int $id)
     {
-        //
+        return $this->repository->show($id);
     }
 
     /**

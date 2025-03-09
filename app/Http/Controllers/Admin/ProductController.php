@@ -14,11 +14,8 @@ class ProductController extends BaseAdminController
     {
         $model = new Product();
         $viewName = 'products';
-        $relationships = [
-            'images'
-        ];
 
-        $repository = new BaseRepository($model, $viewName, $relationships);
+        $repository = new BaseRepository($model, $viewName);
 
         parent::__construct($repository);
     }

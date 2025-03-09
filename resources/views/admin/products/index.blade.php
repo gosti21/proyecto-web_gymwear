@@ -38,7 +38,7 @@
             <td class="px-6 py-4">
                 S/. {{ $product->price }}
             </td>
-            @include('admin.partials.tabla-acctions', ['item' => $product, 'editRoute' => 'admin.products.edit', 'deleteRoute' => 'admin.products.destroy'])
+            @include('admin.partials.tabla-acctions2', ['item' => $product, 'showRoute' => 'admin.products.show', 'editRoute' => 'admin.products.edit', 'deleteRoute' => 'admin.products.destroy'])
         </tr>
     @endforeach
 @endsection
