@@ -8,23 +8,24 @@
         'route' => route('admin.families.index'),
     ],
     [
-        'name' => 'Editar - ' . $family->name,
+        'name' => 'Editar - ' . $data->name,
     ],
 ]">
 
     <div class="card card-color">
-        <form action="{{ route('admin.families.update', $family) }}" method="POST" id="edit-form">
+        <form action="{{ route('admin.families.update', $data) }}" method="POST" id="edit-form">
             @csrf
-
             @method('PUT')
 
+            <x-validation-errors class="mb-4" />
+            
             <div class="mb-4">
                 <x-label class="mb-2">
                     Nombre
                 </x-label>
                 <x-input class="w-full" 
                     placeholder="Ingrese el nombre de la familia" 
-                    name="name" value="{{ old('name', $family->name) }}"/>
+                    name="name" value="{{ old('name', $data->name) }}"/>
             </div>
             <div class="flex justify-end">
                 <x-button type="button" onclick="confirmEdit()">
@@ -34,25 +35,6 @@
         </form>
     </div>
     
-    @push('js')
-        <script>
-            function confirmEdit(){
-                Swal.fire({
-                    title: "¿Estas seguro?",
-                    text: "¡No podrás revertir esto!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Si",
-                    cancelButtonText: "Cancelar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('edit-form').submit();
-                    }
-                });
-            }
-        </script>
-    @endpush
-
+    @include('admin.partials.sweet-alert-edit')
+    
 </x-admin-layout>

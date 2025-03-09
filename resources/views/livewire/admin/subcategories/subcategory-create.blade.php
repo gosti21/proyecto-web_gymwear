@@ -1,5 +1,6 @@
 <div class="card card-color">
-    <form>
+
+    <form wire:submit="save">
 
         <x-validation-errors class="mb-4" />
 
@@ -8,8 +9,8 @@
                 Familias
             </x-label>
 
-            <x-select wire:model="subCategory.family_id">
-                <option disabled selected value="">Selecciona una opción: </option>
+            <x-select wire:model.live="family_id" wire:key="family-select-{{ $family_id }}">
+                <option disabled value="">Selecciona una familia </option>
                 @foreach ($families as $family)
                     <option value="{{ $family->id }}">
                         {{ $family->name }}
@@ -20,13 +21,13 @@
 
         <div class="mb-4">
             <x-label class="mb-2">
-                Categorías
+                Categorias
             </x-label>
 
-            <x-select name="category_id">
-                <option disabled selected value="">Selecciona una opción: </option>
+            <x-select wire:model.live="category_id" wire:key="category-select-{{ $family_id }}-{{ $category_id }}">
+                <option disabled value="">Selecciona una categoría </option>
                 @foreach ($this->categories as $category)
-                    <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                    <option value="{{ $category->id }}">
                         {{ $category->name }}
                     </option>
                 @endforeach
@@ -37,7 +38,8 @@
             <x-label class="mb-2">
                 Nombre
             </x-label>
-            <x-input class="w-full" placeholder="Ingrese el nombre de la subcategoría"/>
+            <x-input class="w-full" placeholder="Ingrese el nombre de la subcategoría"
+                wire:model="name"/>
         </div>
 
         <div class="flex justify-end">
@@ -45,5 +47,7 @@
                 Guardar
             </x-button>
         </div>
+
     </form>
+    
 </div>

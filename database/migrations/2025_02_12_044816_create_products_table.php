@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
 
-            $table->string('sku', 10);
-            $table->string('name', 70);
-            $table->text('description');
-            $table->string('image_path');
-            $table->float('price');
+            $table->string('sku', length: 10)->unique();
+            $table->string('name', length: 80);
+            $table->text('description')->nullable();
+            $table->decimal('price', total:8 , places:2);
 
             $table->foreignId('sub_category_id')->constrained();
-            
+
+            $table->unique(['name', 'sub_category_id']);
+
             $table->timestamps();
         });
     }

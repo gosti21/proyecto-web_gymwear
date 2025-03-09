@@ -4,26 +4,26 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Categorias',
+        'name' => 'Categorías',
         'route' => route('admin.categories.index'),
     ],
     [
         'name' => 'Crear',
     ],
 ]">
+
     <div class="card card-color">
         <form action="{{ route('admin.categories.store') }}" method="POST">
             @csrf
-
-            <x-validation-errors class="mb-4"/>
+            <x-validation-errors class="mb-4" />
 
             <div class="mb-4">
                 <x-label class="mb-2">
-                    Familia
+                    Familias
                 </x-label>
 
                 <x-select name="family_id">
-                    <option disabled selected>Selecciona una opción: </option>
+                    <option disabled selected>Selecciona una familia </option>
                     @foreach ($families as $family)
                         <option value="{{ $family->id }}"
                             @selected(old('family_id') == $family->id)>
@@ -41,7 +41,6 @@
                     placeholder="Ingrese el nombre de la categoría" 
                     name="name" value="{{ old('name') }}"/>
             </div>
-
             <div class="flex justify-end">
                 <x-button>
                     Guardar
@@ -49,4 +48,5 @@
             </div>
         </form>
     </div>
+    
 </x-admin-layout>

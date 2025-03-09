@@ -4,19 +4,20 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Categorias',
+        'name' => 'Categorías',
         'route' => route('admin.categories.index'),
     ],
     [
-        'name' => 'Editar - ' . $category->name,
+        'name' => 'Editar - ' . $data->name,
     ],
 ]">
+
     <div class="card card-color">
-        <form action="{{ route('admin.categories.update', $category) }}" method="POST">
+        <form action="{{ route('admin.categories.update', $data) }}" method="POST" id="edit-form">
             @csrf
             @method('PATCH')
 
-            <x-validation-errors class="mb-4"/>
+            <x-validation-errors class="mb-4" />
 
             <div class="mb-4">
                 <x-label class="mb-2">
@@ -24,10 +25,10 @@
                 </x-label>
 
                 <x-select name="family_id">
-                    <option disabled selected>Selecciona una opción: </option>
+                    <option disabled selected>Selecciona una familia </option>
                     @foreach ($families as $family)
                         <option value="{{ $family->id }}"
-                            @selected(old('family_id', $category->family_id) == $family->id)>
+                            @selected(old('family_id', $data->family_id) == $family->id)>
                             {{ $family->name }}
                         </option>
                     @endforeach
@@ -39,15 +40,17 @@
                     Nombre
                 </x-label>
                 <x-input class="w-full" 
-                    placeholder="Ingrese el nombre de la categoría" 
-                    name="name" value="{{ old('name', $category->name) }}"/>
+                    placeholder="Ingrese el nombre de la categoría"
+                    name="name" value="{{ old('name', $data->name) }}"/>
             </div>
-
             <div class="flex justify-end">
-                <x-button>
+                <x-button type="button" onclick="confirmEdit()">
                     Actualizar
                 </x-button>
             </div>
         </form>
     </div>
+    
+    @include('admin.partials.sweet-alert-edit')
+
 </x-admin-layout>

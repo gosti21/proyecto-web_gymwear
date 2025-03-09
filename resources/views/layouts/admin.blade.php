@@ -43,7 +43,7 @@
 
     <div class="p-4 sm:ml-64">
         <div class="mt-14">
-            <div class="flex justify-between items-start">
+            <div class="flex justify-between items-center">
                 @include('layouts.partials.admin.breadcrumb')
                 @isset($action)
                     {{ $action }}
@@ -55,18 +55,24 @@
             </div>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     @livewireScripts
 
     @stack('js')
 
-    @if(session('swal'))
+    @if (session('swal'))
         <script>
-            Swal.fire({!! json_encode(session('swal')) !!});
+            Swal.fire({!! json_encode(session('swal')) !!})
         </script>
     @endif
+
+    <script>
+        Livewire.on('swal', data => {
+            Swal.fire(data[0]);
+        });
+    </script>
 </body>
 
 </html>
