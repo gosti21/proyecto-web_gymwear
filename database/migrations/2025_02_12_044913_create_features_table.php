@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('features', function (Blueprint $table) {
             $table->id();
 
-            $table->string('value');
+            $table->string('value')->unique();
             $table->string('description');
 
-            $table->foreignId('option_id')->constrained();
-            
+            $table->foreignId('option_id')->constrained()->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

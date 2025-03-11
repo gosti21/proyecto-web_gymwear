@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\SubCategory;
 use App\Repositories\Admin\BaseRepository;
 use Illuminate\Http\Request;

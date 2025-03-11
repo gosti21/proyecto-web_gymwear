@@ -7,6 +7,7 @@ use App\Models\Family;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Traits\Admin\skuGenerator;
+use App\Traits\Admin\sweetAlerts;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -19,6 +20,7 @@ class ProductEdit extends Component
 {
     use WithFileUploads;
     use skuGenerator;
+    use sweetAlerts;
 
     public $data;
     public $image;
@@ -51,13 +53,10 @@ class ProductEdit extends Component
     {
         $this->withValidator(function ($validator) {
             if ($validator->fails()) {
-                $this->dispatch('swal', [
+                $this->alertGenerate2([
                     'icon' => 'error',
                     'title' => '¡Error!',
                     'text' => "El formulario contiene errores",
-                    'draggable' => true,
-                    'timer' => 1800,
-                    'timerProgressBar' => true
                 ]);
             }
         });
@@ -121,26 +120,19 @@ class ProductEdit extends Component
             DB::commit();
 
             $this->dispatch('subcategoryUpdated', $this->name);
-            $this->dispatch('swal', [
-                'icon' => 'success',
+
+            $this->alertGenerate2([
                 'title' => '¡Registro actualizado!',
                 'text' => "El registro ha sido actualizado correctamente",
-                'timer' => 1600,
-                'timerProgressBar' => true
             ]);
-
-            return redirect()->route('admin.products.edit');
 
         } catch (\Exception $e) {
             DB::rollback();
 
-            session()->flash('swal', [
+            $this->alertGenerate2([
                 'title' => "¡Error!",
-                'text' => "Hubo un problema al crear el registro.",
+                'text' => "$e",
                 'icon' => "error",
-                'draggable' => true,
-                'timer' => 1800,
-                'timerProgressBar' => true
             ]);
         }
     }

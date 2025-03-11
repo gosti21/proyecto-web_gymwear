@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', length: 60);
+            $table->string('name', length: 60)->unique();
             $table->integer('type');
             
             $table->timestamps();

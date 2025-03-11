@@ -4,12 +4,15 @@ namespace App\Livewire\Admin\Subcategories;
 
 use App\Models\Category;
 use App\Models\Family;
+use App\Traits\Admin\sweetAlerts;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class SubcategoryEdit extends Component
 {
+    use sweetAlerts;
+
     public $data;
     public $families;
 
@@ -56,13 +59,10 @@ class SubcategoryEdit extends Component
         ]);
 
         $this->dispatch('subcategoryUpdated', $this->name);
-        
-        $this->dispatch('swal', [
-            'icon' => 'success',
+
+        $this->alertGenerate2([
             'title' => '¡Registro actualizado!',
             'text' => "El registro ha sido actualizado correctamente",
-            'timer' => 1600,
-            'timerProgressBar' => true
         ]);
     }
 

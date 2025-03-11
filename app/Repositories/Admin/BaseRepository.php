@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 use App\Repositories\Admin\Contracts\RepositoryInterface;
 use App\Traits\Admin\loadExtraData;
 use App\Traits\Admin\resolvesRequests;
+use App\Traits\Admin\sweetAlerts;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,7 @@ class BaseRepository implements RepositoryInterface
 {
     use loadExtraData;
     use resolvesRequests;
+    use sweetAlerts;
 
     protected $model;
     protected $relationships = [];
@@ -64,13 +66,7 @@ class BaseRepository implements RepositoryInterface
         $validated = $this->validateStoreRequest($request);
         $this->model->create($validated);
 
-        session()->flash('swal', [
-            'title' => "¡Registro creado!",
-            'text' => "El registro ha sido creado correctamente",
-            'icon' => "success",
-            'timer' => 1600,
-            'timerProgressBar' => true
-        ]);
+        $this->alertGenerate1();
 
         return redirect()->route("admin.{$this->viewName}.create");
     }
@@ -106,12 +102,9 @@ class BaseRepository implements RepositoryInterface
         $validated = $this->validateUpdateRequest($request);
         $data->update($validated);
 
-        session()->flash('swal', [
-            'icon' => 'success',
+        $this->alertGenerate1([
             'title' => '¡Registro actualizado!',
-            'text' => "El registro ha sido actualizado correctamente",
-            'timer' => 1600,
-            'timerProgressBar' => true
+            'text' => 'El registro ha sido actualizado correctamente.',
         ]);
 
         return redirect()->route("admin.{$this->viewName}.edit", $id);
@@ -126,24 +119,21 @@ class BaseRepository implements RepositoryInterface
         $data = $this->model::findOrFail($id);
 
         if (isset($this->relationCheckerDestroy) && call_user_func($this->relationCheckerDestroy, $data)) {
-            session()->flash('swal', [
+            
+            $this->alertGenerate1([
                 'icon' => 'error',
                 'title' => '¡Ups!',
                 'text' => "No se puede eliminar este registro porque tiene relaciones asociadas.",
-                'timer' => 1600,
-                'timerProgressBar' => true
             ]);
+        
             return redirect()->route("admin.{$this->viewName}.index");
         }
 
         $data->delete();
 
-        session()->flash('swal', [
-            'icon' => 'success',
+        $this->alertGenerate1([
             'title' => '¡Registro eliminado!',
             'text' => "El registro ha sido eliminado correctamente",
-            'timer' => 1600,
-            'timerProgressBar' => true
         ]);
 
         return redirect()->route("admin.{$this->viewName}.index");

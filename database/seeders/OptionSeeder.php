@@ -13,6 +13,7 @@ class OptionSeeder extends Seeder
      */
     public function run(): void
     {
+        /* Colocamos 1 en type referenciando que los valores seran de tipo texto pero si es 2 de tipo color */
         $options = [
             [
                 'name' => 'Material',
@@ -72,7 +73,7 @@ class OptionSeeder extends Seeder
             ],
             [
                 'name' => 'Medidas',
-                'type' => 3,
+                'type' => 1,
                 'features' => [
                     [
                         'value' => 'U',

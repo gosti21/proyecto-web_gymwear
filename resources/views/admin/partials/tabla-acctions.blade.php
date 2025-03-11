@@ -7,7 +7,7 @@
             @csrf
             @method('DELETE')
             <button type="button" class="font-medium text-red-600 dark:text-red-500"
-                onclick="confirmDelte({{ $item->id }})">
+                onclick="confirmDelete({{ $item->id }})">
                 <i class="fa-solid fa-trash-can fa-lg"></i>
             </button>
         </form>

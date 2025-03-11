@@ -7,6 +7,7 @@ use App\Models\Family;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Traits\Admin\skuGenerator;
+use App\Traits\Admin\sweetAlerts;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -18,6 +19,7 @@ class ProductCreate extends Component
 {
     use WithFileUploads;
     use skuGenerator;
+    use sweetAlerts;
 
     public $families;
 
@@ -42,13 +44,10 @@ class ProductCreate extends Component
         $this->withValidator(function ($validator)
         {
             if($validator->fails()){
-                $this->dispatch('swal', [
+                $this->alertGenerate2([
                     'icon' => 'error',
                     'title' => '¡Error!',
                     'text' => "El formulario contiene errores",
-                    'draggable' => true,
-                    'timer' => 1800,
-                    'timerProgressBar' => true
                 ]);
             }
         });
@@ -100,27 +99,17 @@ class ProductCreate extends Component
 
             DB::commit();
 
-            session()->flash('swal', [
-                'title' => "¡Registro creado!",
-                'text' => "El registro ha sido creado correctamente",
-                'icon' => "success",
-                'draggable' => true,
-                'timer' => 1600,
-                'timerProgressBar' => true
-            ]);
+            $this->alertGenerate1();
     
             return redirect()->route('admin.products.create');
 
         }catch (\Exception $e) {
             DB::rollback();
             
-            session()->flash('swal', [
+            $this->alertGenerate1([
                 'title' => "¡Error!",
                 'text' => "Hubo un problema al crear el registro.",
                 'icon' => "error",
-                'draggable' => true,
-                'timer' => 1800,
-                'timerProgressBar' => true
             ]);
         }
     }

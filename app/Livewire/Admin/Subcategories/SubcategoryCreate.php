@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Subcategories;
 use App\Models\Category;
 use App\Models\Family;
 use App\Models\SubCategory;
+use App\Traits\Admin\sweetAlerts;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
@@ -12,6 +13,8 @@ use Livewire\Component;
 
 class SubcategoryCreate extends Component
 {
+    use sweetAlerts;
+
     public $families;
     public $family_id = '';
     public $category_id = '';
@@ -49,14 +52,7 @@ class SubcategoryCreate extends Component
             'name'        => $this->name,
         ]);
 
-        session()->flash('swal', [
-            'title' => "¡Registro creado!",
-            'text' => "El registro ha sido creado correctamente",
-            'icon' => "success",
-            'draggable' => true,
-            'timer' => 1600,
-            'timerProgressBar' => true
-        ]);
+        $this->alertGenerate1();
 
         return redirect()->route('admin.subcategories.create');
     }

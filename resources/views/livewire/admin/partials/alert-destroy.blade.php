@@ -1,6 +1,6 @@
 @push('js')
     <script>
-        function confirmDelete(modelId){
+        function confirmDelete(modelId, method){
             Swal.fire({
                 title: "¿Estas seguro?",
                 text: "¡No podrás revertir esto!",
@@ -12,7 +12,7 @@
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + modelId).submit();
+                    @this.call(method, modelId)
                 }
             });
         }
