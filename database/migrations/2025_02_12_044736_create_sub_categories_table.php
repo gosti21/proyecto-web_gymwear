@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('name', length: 60);
 
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
 
             $table->unique(['name', 'category_id']);
             

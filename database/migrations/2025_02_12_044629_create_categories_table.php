@@ -16,8 +16,8 @@ return new class extends Migration
 
             $table->string('name', length: 60);
 
-            $table->foreignId('family_id')->constrained();
-            /* ->cascadeOnUpdate()->cascadeOnDelete(); */
+            $table->foreignId('family_id')->constrained()->cascadeOnDelete();
+            /* ->cascadeOnUpdate(); */
             $table->unique(['name', 'family_id']);
 
             $table->timestamps();

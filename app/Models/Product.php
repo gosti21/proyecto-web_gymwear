@@ -34,7 +34,8 @@ class Product extends Model
     public function options(): BelongsToMany
     {
         return $this->belongsToMany(Option::class)
-                    ->withPivot('value')
+                    ->using(OptionProduct::class)
+                    ->withPivot('features')
                     ->withTimestamps();
     }
 

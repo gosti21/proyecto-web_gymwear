@@ -1,6 +1,6 @@
 @push('js')
     <script>
-        function confirmDelete(modelId, method){
+        function confirmDelete(modelId, method, modelId2 = ''){
             Swal.fire({
                 title: "¿Estas seguro?",
                 text: "¡No podrás revertir esto!",
@@ -12,7 +12,11 @@
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call(method, modelId)
+                    if(modelId2 == ''){
+                        @this.call(method, modelId)
+                    }else{
+                        @this.call(method, modelId, modelId2)
+                    }
                 }
             });
         }

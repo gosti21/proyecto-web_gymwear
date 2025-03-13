@@ -55,16 +55,17 @@ class CreateOptionForm extends Form
                 'between:3,60',
             ],
             'type' => 'required|in:1,2',
-            'features' => 'required|array|min:1',
+            /* 'features' => 'required|array|min:1', */
+            'features.*.value' => 'required',
         ];
 
         foreach ($this->features as $index => $feature) {
             if ($this->type == 1) {
                 //referencia el texto
-                $rules['features.' . $index . '.value'] = 'required|string|between:1,50';
+                $rules['features.' . $index . '.value'] = 'required|string|between:1,50|unique:features,value|distinct:strict';
             } else {
                 //referencia el color
-                $rules['features.' . $index . '.value'] = 'required|hex_color';
+                $rules['features.' . $index . '.value'] = 'required|hex_color|unique:features,value|distinct:strict';
             }
             $rules['features.' . $index . '.description'] = 'required|string|max:255';
         }
@@ -72,15 +73,17 @@ class CreateOptionForm extends Form
         return $rules;
     }
 
-    public function validationAttributes()
+    public function messages(): array
     {
-        $attributes = [];
-        foreach($this->features as $index => $feature){
-            $attributes['features.' . $index . '.value'] = 'valor ' . ($index + 1 );
-            $attributes['features.' . $index . '.description'] = 'descripción ' . ($index + 1);
+        $messages = [];
+        foreach ($this->features as $index => $feature) {
+            $messages['features.' . $index . '.value.required'] = "El valor del campo " . ($index + 1) . ", es obligatorio";
+            $messages['features.' . $index . '.value.unique'] = "El valor del campo " . ($index + 1) . ", ya ha sido registrado";
+            $messages['features.' . $index . '.description.required'] = "La descripción del campo " . ($index + 1) . ", es obligatorio";
+            $messages['features.' . $index . '.value.distinct'] = "El valor del campo " . ($index + 1) . ", continene un valor duplicado";
         }
 
-        return $attributes;
+        return $messages;
     }
 
     public function save()

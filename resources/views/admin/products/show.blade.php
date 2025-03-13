@@ -12,7 +12,7 @@
     ],
 ]">
 
-    <section>
+    <section class="mb-12">
         <h5 class="text-center header-h5 mb-4">Detalles del Producto</h5>
 
         <div>
@@ -88,5 +88,7 @@
             </div>
         </div>
     </section>
+
+    @livewire('admin.products.product-variants', ['product' => $data])
 
 </x-admin-layout>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', total:8 , places:2);
 
-            $table->foreignId('sub_category_id')->constrained();
+            $table->foreignId('sub_category_id')->constrained()->cascadeOnDelete();
 
             $table->unique(['name', 'sub_category_id']);
 
