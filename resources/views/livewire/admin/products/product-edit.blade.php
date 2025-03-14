@@ -75,7 +75,7 @@
             Imagen
         </h6>
         <div class="flex justify-center relative mt-4">
-            <div class="absolute top-8 right-8">
+            <div class="absolute top-0 right-8">
                 <label class="flex items-center btn2 btn-light cursor-pointer">
                     <i class="fa-solid fa-images fa-lg mr-2"></i>
                     Subir imagen

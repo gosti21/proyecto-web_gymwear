@@ -12,7 +12,7 @@
     ],
 ]">
 
-    <section class="mb-12">
+    <section class="mb-8">
         <h5 class="text-center header-h5 mb-4">Detalles del Producto</h5>
 
         <div>
@@ -74,7 +74,7 @@
                     Precio:
                 </h6>
                 <p class="cont-p">
-                    {{ $data->price }}
+                    S/. {{ $data->price }}
                 </p>
             </div>
             
@@ -88,6 +88,8 @@
             </div>
         </div>
     </section>
+
+    <h5 class="text-center header-h5 mb-6">Generar Variantes</h5>
 
     @livewire('admin.products.product-variants', ['product' => $data])
 

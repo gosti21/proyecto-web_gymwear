@@ -1,9 +1,9 @@
 <td class="px-6 py-4 text-right">
     <div class="flex justify-between">
-        <a href="{{ route($showRoute, $item) }}" class="font-medium text-yellow-600 dark:text-yellow-500">
+        <a href="{{ route($showRoute, $item) }}" class="font-medium text-green-600 dark:text-green-500">
             <i class="fa-solid fa-eye fa-lg"></i>
         </a>
-        <a href="{{ route($editRoute, $item) }}" class="font-medium text-blue-600 dark:text-blue-500">
+        <a href="{{ route($editRoute, $item) }}" class="font-medium text-yellow-600 dark:text-yellow-500">
             <i class="fa-solid fa-pen-to-square fa-lg"></i>
         </a>
         <form action="{{ route($deleteRoute, $item) }}" method="POST" id="delete-form-{{ $item->id }}">

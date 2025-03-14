@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
+use App\Models\Variant;
 use App\Repositories\Admin\BaseRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -58,5 +59,10 @@ class ProductController extends BaseAdminController
 
             return redirect()->route("admin.products.index");
         }
+    }
+
+    public function variants(Product $product, Variant $variant)
+    {
+        return view('admin.products.variants', compact('product', 'variant'));
     }
 }

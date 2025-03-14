@@ -16,7 +16,7 @@
         </div>
         <div class="pt-11">
             <button>
-                <i class="fa-solid fa-circle-plus fa-2xl text-yellow-500 hover:text-yellow-400 dark:text-yellow-300 dartk:hover:text-yellow-400"></i>
+                <i class="fa-solid fa-circle-plus fa-2xl text-yellow-500 hover:text-yellow-400 dark:text-yellow-300 dark:hover:text-yellow-400"></i>
             </button>
         </div>
     </form>
