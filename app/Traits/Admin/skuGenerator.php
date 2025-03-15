@@ -20,4 +20,13 @@ trait skuGenerator
         
         return $subCategoryPrefix . $namePrefix . $randomNumbers;
     }
+
+    public function generateSkuVariant( string $name)
+    {
+        $prefix = strtoupper('var');
+        $randomNumbers = rand(1000, 9999);
+        $namePrefix = strtoupper(substr($name, 0, 3));
+
+        return $prefix . $randomNumbers . $namePrefix;
+    }
 }

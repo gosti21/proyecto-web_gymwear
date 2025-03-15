@@ -99,8 +99,6 @@ class ProductVariants extends Component
 
         $this->product = $this->product->fresh();
 
-        $this->generarVariantes();
-
         $this->reset(['variant', 'openModal']);
     }
 
@@ -151,23 +149,28 @@ class ProductVariants extends Component
      */
     public function deleteFeature($feature_id, $option_id)
     {
+        $features = $this->product->options()->findOrFail($option_id)->pivot->features;
+
+        // Filtramos el feature que se quiere eliminar
+        $filteredFeatures = array_filter($features, function ($feature) use ($feature_id) {
+            return $feature['id'] != $feature_id;
+        });
+
+        // Reindexamos el array para que tenga índices consecutivos
+        $filteredFeatures = array_values($filteredFeatures);
+
+        // Actualizamos la base de datos con el array limpio y reindexado
         $this->product->options()->updateExistingPivot($option_id, [
-            'features' => array_filter($this->product->options->find($option_id)->pivot->features, function($feature) use ($feature_id){
-                return $feature['id'] != $feature_id;
-            })
+            'features' => $filteredFeatures
         ]);
 
         $this->product = $this->product->fresh();
-
-        $this->generarVariantes();
     }
 
     public function deleteOption($option_id)
     {
         $this->product->options()->detach($option_id);
         $this->product = $this->product->fresh();
-
-        $this->generarVariantes();
     }
 
     /**
@@ -177,7 +180,6 @@ class ProductVariants extends Component
     public function updateFeatureOptionList()
     {
         $this->product = $this->product->fresh();
-        $this->generarVariantes();
     }
 
     public function render()

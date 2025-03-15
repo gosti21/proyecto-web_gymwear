@@ -1,5 +1,5 @@
 <div>
-    <section class="block border rounded-lg shadow-sm bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700 mb-12">
+    <section class="block border rounded-lg shadow-sm bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <header class="border-b px-6 py-2 border-gray-300 dark:border-gray-500">
             <div class="flex justify-between">
                 <h1 class="text-lg font-semibold text-gray-900 dark:text-white">
@@ -69,46 +69,53 @@
                     @endforeach
                 </div>
             @else
-                @include('admin.partials.alert-info', ['message' => 'Este producto aún no tiene registrado opciones'])
+                @include('admin.partials.alert-info', ['message' => 'Cree las opciones, para poder generar las variantes'])
             @endif
         </div>
     </section>
 
-    <section class="block border rounded-lg shadow-sm bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <header class="border-b px-6 py-2 border-gray-300 dark:border-gray-500">
-            <div class="flex justify-between">
-                <h1 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Variantes
-                </h1>
+    @if (!empty($option->pivot->features) && count($option->pivot->features) > 0)
+        <section class="block border rounded-lg shadow-sm bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700 mt-12">
+            <header class="border-b px-6 py-2 border-gray-300 dark:border-gray-500">
+                <div class="flex justify-between">
+                    <h1 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        Variantes
+                    </h1>
+                    <x-button>
+                        <a href="{{route('admin.variants.create', [$product])}}">
+                            Crear
+                        </a>
+                    </x-button>
+                </div>
+            </header>
+
+            <div class="p-6">
+                @if ($product->variants->isEmpty())
+                    @include('admin.partials.alert-info', ['message' => 'Aún no se han generado variantes'])
+                @else
+                    <ul class="divide-y -my-4">
+                        @foreach($product->variants as $item)
+                            <li class="py-4 flex items-center">
+                                <img src="{{ $item->images->isEmpty() ? asset('assets/img/no-image-2.jpg') : Storage::url($item->images->first()->path) }}" alt="" class="w-18 h-16 object-cover object-center">
+                                
+                                <p class="divide-x ml-2 text-gray-500 dark:text-gray-300">
+                                    @foreach ($item->features as $featureItem)
+                                        <span class="px-3">
+                                            {{ $featureItem->description }}
+                                        </span>
+                                    @endforeach
+                                </p>
+
+                                <a href="{{ route('admin.variants.edit', [$product, $item]) }}" class="ml-auto font-medium text-yellow-600 dark:text-yellow-500">
+                                    <i class="fa-solid fa-pen-to-square fa-2xl"></i>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
-        </header>
-
-        <div class="p-6">
-            @if ($product->variants->isEmpty())
-                @include('admin.partials.alert-info', ['message' => 'Agrege opciones para poder generar las variantes'])
-            @else
-                <ul class="divide-y -my-4">
-                    @foreach($product->variants as $item)
-                        <li class="py-4 flex items-center">
-                            <img src="{{ $item->images->isEmpty() ? asset('assets/img/no-image-2.jpg') : Storage::url($item->images->first()->path) }}" alt="" class="w-18 h-16 object-cover object-center">
-                            
-                            <p class="divide-x ml-2 text-gray-500 dark:text-gray-300">
-                                @foreach ($item->features as $featureItem)
-                                    <span class="px-3">
-                                        {{ $featureItem->description }}
-                                    </span>
-                                @endforeach
-                            </p>
-
-                            <a href="{{ route('admin.products.variants', [$product, $item]) }}" class="ml-auto font-medium text-yellow-600 dark:text-yellow-500">
-                                <i class="fa-solid fa-pen-to-square fa-2xl"></i>
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
-        </div>
-    </section>
+        </section>
+    @endif
 
     <x-dialog-modal wire:model="openModal">
         <x-slot name="title">

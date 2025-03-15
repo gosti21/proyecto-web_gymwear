@@ -62,6 +62,14 @@
             <x-input class="w-full" placeholder="Ingrese el precio del producto" wire:model="price"  wire:key="price"
                 type="number" step="0.01"/>
         </div>
+        
+        <div class="mb-4">
+            <x-label class="mb-2">
+                Stock
+            </x-label>
+            <x-input class="w-full" placeholder="Ingrese el stock del producto" wire:model="stock"  wire:key="stock"
+                type="number"/>
+        </div>
     
         <div class="mb-4">
             <x-label class="mb-2">

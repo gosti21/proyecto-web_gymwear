@@ -31,6 +31,7 @@ class ProductEdit extends Component
     public $sub_category_id = '';
     public $name = '';
     public $price = '';
+    public $stock = '';
     public $description = '';
     public $path = '';
 
@@ -45,6 +46,9 @@ class ProductEdit extends Component
         $this->sub_category_id = $data->sub_category_id;
         $this->name = $data->name;
         $this->price = $data->price;
+        if(!$this->data->variants->count() > 0){
+            $this->stock = $data->stock;
+        }
         $this->description = $data->description;
         $this->path = $data->images->first()->path; #obtenemos la primera imagen
     }
@@ -92,6 +96,13 @@ class ProductEdit extends Component
         if($this->data->name !== $this->name || $this->data->sub_category_id !== $this->sub_category_id)
         {
             $sku = $this->generateSku($this->sub_category_id, $this->name);
+            $skuvariant = $this->generateSkuVariant($this->name);
+
+            $variant = Product::findOrFail($this->data->id);
+            $variant->variants()->update([
+                'sku' => $skuvariant
+            ]);
+
         }else{
             $sku = $this->data->sku;
         }
@@ -154,6 +165,7 @@ class ProductEdit extends Component
                         ->ignore($this->data->id)
                 ],
                 'price' => 'required|numeric|decimal:2|min:1',
+                'stock' => ['sometimes', 'numeric', 'min:1', Rule::requiredIf(fn() => $this->data->variants->count() == 0)],
                 'description' => 'nullable|string',
                 'image' => 'nullable|image|max:1024'
             ],

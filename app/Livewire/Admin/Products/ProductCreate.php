@@ -24,6 +24,7 @@ class ProductCreate extends Component
     public $families;
 
     public $family_id = '';
+    public $stock = '';
     public $category_id = '';
     public $sub_category_id = '';
     public $name = '';
@@ -87,6 +88,7 @@ class ProductCreate extends Component
             $product = Product::create([
                 'name' => $this->name,
                 'price' => $this->price,
+                'stock' => $this->stock,
                 'sku' => $sku,
                 'description' => $this->description,
                 'sub_category_id' => $this->sub_category_id,
@@ -129,6 +131,7 @@ class ProductCreate extends Component
                     Rule::unique('products', 'name')->where(fn(Builder $query) => $query->where('sub_category_id', $this->sub_category_id))
                 ],
                 'price' => 'required|numeric|decimal:2|min:1',
+                'stock' => 'required|min:1|integer',
                 'description' => 'nullable|string',
                 'image' => 'required|image|max:1024'
             ],

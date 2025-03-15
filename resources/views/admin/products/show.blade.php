@@ -78,6 +78,17 @@
                 </p>
             </div>
             
+            @if (!$data->variants->count() > 0)
+                <div class="mb-3">
+                    <h6 class="header-h6">
+                        Stock:
+                    </h6>
+                    <p class="cont-p">
+                        {{ $data->stock }}
+                    </p>
+                </div>      
+            @endif
+            
             <div class="mb-3">
                 <h6 class="header-h6">
                     Descripción:

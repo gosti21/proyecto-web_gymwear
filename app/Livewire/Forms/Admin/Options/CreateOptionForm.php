@@ -55,7 +55,6 @@ class CreateOptionForm extends Form
                 'between:3,60',
             ],
             'type' => 'required|in:1,2',
-            /* 'features' => 'required|array|min:1', */
             'features.*.value' => 'required',
         ];
 

@@ -16,8 +16,13 @@
     ],
 ]">
 
-    <form action="" method="POST">
+    <form action="{{route('admin.variants.update', [$product, $variant])}}" method="POST"
+        enctype="multipart/form-data" id="edit-form">
         @csrf
+        @method('PATCH')
+
+        <x-validation-errors class="mb-4" />
+
         <h6 class="mb-2 block font-medium text-gray-700 dark:text-gray-300">
             Imagen
         </h6>
@@ -36,7 +41,25 @@
                     alt="" id="imgPreview">
             </figure>
         </div>
+
+        <div class="mb-4">
+            <x-label class="mb-2">
+                    Stock
+            </x-label>
+            <x-input class="w-full" type="number" name="stock"
+                value="{{ old('stock', $variant->stock) }}"
+                placeholder="Ingrese el stock" 
+            />
+        </div>
+
+        <div class="flex justify-end">
+            <x-button type="button" onclick="confirmEdit()">
+                Actualizar
+            </x-button>
+        </div>
     </form>
+
+    @include('admin.partials.sweet-alert-edit')
 
     @push('js')
         <script>
