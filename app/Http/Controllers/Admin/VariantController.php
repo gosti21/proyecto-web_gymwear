@@ -31,6 +31,6 @@ class VariantController extends Controller
     {
         $this->variantRepository->update($request, $variant);
 
-        return redirect()->route('admin.products.show', $product);
+        return redirect()->route('admin.variants.edit', ['product' => $product, 'variant' => $variant]);
     }
 }

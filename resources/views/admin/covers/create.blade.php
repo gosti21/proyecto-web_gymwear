@@ -4,30 +4,48 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Productos',
-        'route' => route('admin.products.index'),
+        'name' => 'Portadas',
+        'route' => route('admin.covers.index'),
     ],
     [
-        'name' => $product->name,
-        'route' => route('admin.products.show', $product->id),
-    ],
-    [
-        'name' => 'variante - ' . $variant->features->pluck('description')->implode(' | '),
+        'name' => 'Crear',
     ],
 ]">
 
-    <form action="{{route('admin.variants.update', [$product, $variant])}}" method="POST"
-        enctype="multipart/form-data" id="edit-form">
+    <form action="{{ route('admin.covers.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PATCH')
 
         <x-validation-errors class="mb-4" />
+        
+        <div class="mb-4">
+            <x-label class="mb-2">
+                Título
+            </x-label>
+
+            <x-input name="title" value="{{ old('title') }}" class="w-full" placeholder="Ingrese el título de la portada"></x-input>
+        </div>
+
+        <div class="mb-4">
+            <x-label class="mb-2">
+                Fecha de inicio
+            </x-label>
+
+            <x-datepicker name="start_at" value="{{ old('start_at', now()->format('d-m-Y')) }}" placeholder="Ingrese una fecha" autocomplete="off"></x-datepicker>
+        </div>
+        
+        <div class="mb-4">
+            <x-label class="mb-2">
+                Fecha de fin (opcional)
+            </x-label>
+
+            <x-datepicker name="end_at" value="{{ old('end_at') }}" placeholder="Ingrese una fecha" autocomplete="off"></x-datepicker>
+        </div>
 
         <h6 class="mb-2 block font-medium text-gray-700 dark:text-gray-300">
             Imagen
         </h6>
-        <div class="flex justify-center relative mt-4">
-            <div class="absolute top-0 right-0 md:right-8">
+        <div class="flex justify-center relative mt-4 mb-4">
+            <div class="absolute top-3 right-0 md:right-4">
                 <label class="flex items-center btn2 btn-light cursor-pointer">
                     <i class="fa-solid fa-images fa-lg mr-2"></i>
                         Subir imagen
@@ -35,32 +53,20 @@
                     onchange="previewImage(event, '#imgPreview')">
                 </label>
             </div>
-            <figure class="max-w-lg">
-                <img class="h-auto max-w-full" 
-                    src="{{ old('old_image', Storage::url($variant->images->first()->path)) }}" 
-                    alt="" id="imgPreview">
+            <figure class="max-w-full">
+                <img class="aspect-[3/1] max-w-full object-cover object-center" 
+                    src="{{ old('old_image', asset('assets/img/no-image-2-horizontal.png')) }}" 
+                    alt="portada" id="imgPreview">
             </figure>
-            <input type="hidden" name="old_image" value="{{ old('old_image', Storage::url($variant->images->first()->path)) }}">
-        </div>
-
-        <div class="mb-4">
-            <x-label class="mb-2">
-                    Stock
-            </x-label>
-            <x-input class="w-full" type="number" name="stock"
-                value="{{ old('stock', $variant->stock) }}"
-                placeholder="Ingrese el stock" 
-            />
+            <input type="hidden" name="old_image" value="{{ old('old_image', asset('assets/img/no-image-2-horizontal.png')) }}">
         </div>
 
         <div class="flex justify-end">
-            <x-button type="button" onclick="confirmEdit()">
-                Actualizar
+            <x-button>
+                Guardar
             </x-button>
         </div>
     </form>
-
-    @include('admin.partials.sweet-alert-edit')
 
     @push('js')
         <script>
@@ -85,7 +91,7 @@
 	            $imgPreview.src = objectURL;
 
                 oldImageInput.value = objectURL;
-        
+                
             }
         </script>
     @endpush

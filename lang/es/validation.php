@@ -279,6 +279,8 @@ return [
         'work'                     => 'trabajo',
         'year'                     => 'año',
         'family_id'                => 'familia',
+        'start_at'                 => 'fecha de inicio',
+        'end_at'                   => 'fecha de fin',
     ],
     'custom' => [
         'name' => [

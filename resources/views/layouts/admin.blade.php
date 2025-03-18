@@ -17,6 +17,9 @@
     <!-- Font awesome-->
     <script src="https://kit.fontawesome.com/597c768540.js" crossorigin="anonymous"></script>
 
+    <!-- Flowbite -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -73,6 +76,8 @@
             Swal.fire(data[0]);
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 
 </html>

@@ -11,6 +11,8 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        @stack('css')
+
         <!-- Font awesome-->
         <script src="https://kit.fontawesome.com/597c768540.js" crossorigin="anonymous"></script>
 
@@ -31,10 +33,17 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <div class="mt-8 lg:mt-14">
+                @include('layouts.partials.shop.footer')
+            </div>
+
         </div>
 
         @stack('modals')
 
         @livewireScripts
+
+        @stack('js')
     </body>
 </html>
