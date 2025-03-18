@@ -16,6 +16,7 @@ class CategoryController extends Controller
     {
 
         $categories = Category::orderBy('id', 'desc')
+            ->with('family')
             ->paginate(10);
 
         return view('admin.categories.index', compact('categories'));
@@ -64,7 +65,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $families = Family::all();
+        return view('admin.categories.edit', compact('category', 'families'));
     }
 
     /**
@@ -72,7 +74,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'family_id' => 'required|exists:families,id',
+            'name' => 'required',
+        ]);
+
+        $category->update($request->all());
+
+        session()->flash('swal',[
+            'icon' => 'success',
+            'title' => 'Bien hecho',
+            'text' => 'La categoría se ha actualizado correctamente'
+        ]);
+
+        return redirect()->route('admin.categories.edit', $category);
     }
 
     /**
@@ -80,6 +95,22 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if ($category->subcategories()->count() > 0) {
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => 'Error',
+                'text' => 'La categoría no se puede eliminar porque tiene subcategorías'
+            ]);
+            return redirect()->route('admin.categories.edit',$category);
+        }
+
+        $category->delete();
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=> 'Bien hecho',
+            'text'=> 'La categoría se ha eliminado correctamente'
+        ]);
+
+        return redirect()->route('admin.categories.index');
     }
 }

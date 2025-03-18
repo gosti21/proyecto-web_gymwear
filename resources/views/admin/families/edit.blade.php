@@ -72,11 +72,6 @@
                     cancelButtonText:"Cancelar"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        /* Swal.fire({
-                        title: "Elimminado!",
-                        text: "Tu archivo fue eliminado.",
-                        icon: "success"
-                        }); */
 
                         document.getElementById('delete-form').submit();
                      }

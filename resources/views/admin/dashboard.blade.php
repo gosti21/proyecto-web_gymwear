@@ -39,7 +39,6 @@
                 Gymware
 
             </h2>
-
         </div>
 
     </div>

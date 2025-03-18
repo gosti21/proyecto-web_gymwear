@@ -16,7 +16,7 @@ class Product extends Model
         'description',
         'image_path',
         'price',
-        'subcotegory_id'
+        'subcategory_id'
     ];
 
     //Relacion de uno a muchos inversa

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Subcategory;
 use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -951,6 +952,13 @@ class FamilySeeder extends Seeder
                     'name' => $categoy,
                     'family_id' => $family->id,
                 ]);
+
+                foreach ($subcategories as $subcategoryName) {
+                    Subcategory::create([
+                        'name' => $subcategoryName,
+                        'category_id' => $category->id,
+                    ]);
+                }
 
             }
 
