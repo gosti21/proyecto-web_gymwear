@@ -131,7 +131,7 @@
                     Opción
                 </x-label>
 
-                <x-select wire:model.live="variant.option_id" wire:key="variant.optiond_id">
+                <x-select wire:model.live="variant.option_id" wire:key="variant.optiond_id" class="w-full">
                     <option disabled selected value="">Seleccione una opción</option>
                     @foreach ($options as $option)
                         <option value="{{ $option->id }}">
@@ -168,7 +168,7 @@
                                 Valores
                             </x-label>
 
-                            <x-select wire:key="feature-{{$index}}" wire:model="variant.features.{{$index}}.id">
+                            <x-select wire:key="feature-{{$index}}" wire:model="variant.features.{{$index}}.id" class="w-full">
                                 <option disabled selected value="">Seleccione una opción</option>
                                 @foreach ($this->features as $feature)
                                     <option value="{{ $feature->id }}">

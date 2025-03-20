@@ -25,7 +25,7 @@
                             Opciones
                         </x-label>
                         
-                        <x-select wire:model.live="variants.{{$index}}.option_id" wire:key="option-variant-{{$index}}" wire:change="resetFeatures({{$index}})">
+                        <x-select wire:model.live="variants.{{$index}}.option_id" wire:key="option-variant-{{$index}}" wire:change="resetFeatures({{$index}})" class="w-full">
                             <option value="" disabled selected>Seleccione una opción</option>
                             @foreach ($options as $option)
                                 <option value="{{$option->id}}">
@@ -40,7 +40,7 @@
                             Valor
                         </x-label>
             
-                        <x-select wire:model="variants.{{$index}}.id" wire:key="feature-variant-{{$index}}">
+                        <x-select wire:model="variants.{{$index}}.id" wire:key="feature-variant-{{$index}}" class="w-full">
                             <option value="" disabled selected>Seleccione una opción</option>
                             @foreach ($this->variantFeatures($index) as $itemfeature)
                                 @foreach ($itemfeature->features as $feature)

@@ -93,7 +93,7 @@
                         Tipo:
                     </x-label>
 
-                    <x-select wire:model.live="newOption.type" wire.key="option-type">
+                    <x-select wire:model.live="newOption.type" wire.key="option-type" class="w-full">
                         <option value="" disabled selected>Seleccione </option>
                         <option value="1">Texto</option>
                         <option value="2">Color</option>

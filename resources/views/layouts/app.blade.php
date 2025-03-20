@@ -34,7 +34,7 @@
                 {{ $slot }}
             </main>
 
-            <div class="mt-8 lg:mt-14">
+            <div class="mt-8">
                 @include('layouts.partials.shop.footer')
             </div>
 

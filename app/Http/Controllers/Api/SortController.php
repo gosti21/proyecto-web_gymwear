@@ -3,23 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cover;
+use App\Repositories\Api\SortRepository;
 use Illuminate\Http\Request;
 
 class SortController extends Controller
 {
+    protected $sortRepository;
+
+    public function __construct(SortRepository $sortRepository)
+    {
+        $this->sortRepository = $sortRepository;
+    }
+
     public function orderCover(Request $request)
     {
-        $sorts = $request->get('sorts');
-
-        $order = 1;
-        foreach($sorts as $sort){
-            $cover = Cover::findOrFail($sort);
-
-            $cover->order = $order;
-            $cover->save();
-
-            $order++;
-        }
+        $this->sortRepository->orderCover($request);
     }
 }

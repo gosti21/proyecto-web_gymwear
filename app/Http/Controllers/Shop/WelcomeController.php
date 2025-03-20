@@ -3,25 +3,23 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cover;
-use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Repositories\Shop\WelcomeRepository;
 
 class WelcomeController extends Controller
 {
+
+    protected $welcomeRepository;
+
+    public function __construct(WelcomeRepository $welcomeRepository)
+    {
+        $this->welcomeRepository = $welcomeRepository;
+    }
+
     public function index()
     {
-        $covers = Cover::where('is_active', true)
-            ->whereDate('start_at', '<=', now())
-            ->where(fn($query) => 
-                $query->whereDate('end_at', '>=', now())
-                    ->orWhereNull('end_at')
-                )
-            ->with('images')->get();
+        //data contiene el retorno de covers y lastProducts
+        $data = $this->welcomeRepository->index();
 
-        $lastProducts = Product::orderBy('created_at', 'desc')
-            ->take(12)->with('images')->get();
-
-        return view('welcome', compact('covers', 'lastProducts'));
+        return view('welcome', $data);
     }
 }

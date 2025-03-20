@@ -8,7 +8,7 @@
                 Familias
             </x-label>
 
-            <x-select wire:model.live="family_id" wire:key="family-select-{{ $family_id }}">
+            <x-select wire:model.live="family_id" wire:key="family-select-{{ $family_id }}" class="w-full">
                 <option disabled value="">Selecciona una familia </option>
                 @foreach ($families as $family)
                     <option value="{{ $family->id }}">
@@ -23,7 +23,7 @@
                 Categorías
             </x-label>
 
-            <x-select wire:model.live="category_id" wire:key="category-select-{{ $family_id }}-{{ $category_id }}">
+            <x-select wire:model.live="category_id" wire:key="category-select-{{ $family_id }}-{{ $category_id }}" class="w-full">
                 <option disabled value="">Selecciona una categoría </option>
                 @foreach ($this->categories as $category)
                     <option value="{{ $category->id }}">
@@ -38,7 +38,7 @@
                 SubCategorías
             </x-label>
             
-            <x-select wire:model.live="sub_category_id" wire:key="subcategory-select-{{ $family_id }}-{{ $category_id }}-{{ $sub_category_id }}">
+            <x-select wire:model.live="sub_category_id" wire:key="subcategory-select-{{ $family_id }}-{{ $category_id }}-{{ $sub_category_id }}" class="w-full">
                 <option disabled value="">Selecciona una subcategoría </option>
                 @foreach ($this->subcategories as $subcategory)
                     <option value="{{ $subcategory->id }}">

@@ -5,7 +5,7 @@
                 Valor:
             </x-label>
             
-            <x-select wire:model="variant.features.id" wire:key="variant.features">
+            <x-select wire:model="variant.features.id" wire:key="variant.features" class="w-full">
                 <option disabled selected value="">Seleccione un valor</option>
                 @foreach ($option->features as $index => $feature)
                     <option value="{{ $feature->id }}">
