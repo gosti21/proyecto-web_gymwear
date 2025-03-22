@@ -43,7 +43,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-6 sm:mx-0 md:mx-0 lg:mx-0">
             @foreach ($lastProducts as $product)
                 <article class="bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700 shadow rounded overflow-hidden relative group">
-                    <a href="">
+                    <a href="{{ route('products.show', $product) }}">
                         <img src="{{ Storage::url($product->images->first()->path) }}" alt="img-product-{{$product->name}}"
                             class="w-full h-48 object-cover object-center">
     
