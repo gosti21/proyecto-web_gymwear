@@ -56,28 +56,28 @@
                 </div>
 
                 <div class="flex flex-wrap">
-                    @foreach ($product->options as $option)
+                    @foreach ($this->availableOptions as $optionId => $features)
                         <div class="mr-4 mb-6">
                             <p class="text-gray-800 dark:text-gray-300 font-semibold text-lg mb-2">
-                                {{ $option->name }}
+                                {{ $features->first()['option']['name'] }}
                             </p>
 
                             <ul class="flex items-center space-x-4">
-                                @foreach ($option->pivot->features as $feature)
+                                @foreach ($features as $feature)
                                     <li>
-                                        @switch($option->type)
+                                        @switch($feature->option->type)
                                             @case(1)
-                                                <button class="w-20 h-8 font-semibold uppercase text-sm rounded-lg {{ $selectedFeatures[$option->id] ==  $feature['id'] ? 'bg-[#FEC51C] text-black' : 'border border-gray-200 text-gray-700 dark:text-gray-200 dark:border-gray-500'}}"
-                                                    wire:click="$set('selectedFeatures.{{ $option->id }}', {{ $feature['id'] }})" wire:key="option-{{$option->id}}-feature-{{ $feature['id'] }}">
+                                                <button class="w-20 h-8 font-semibold uppercase text-sm rounded-lg {{ $selectedFeatures[$feature['option_id']] ==  $feature['id'] ? 'bg-[#FEC51C] text-black' : 'border border-gray-200 text-gray-700 dark:text-gray-200 dark:border-gray-500'}}"
+                                                    wire:click="$set('selectedFeatures.{{ $feature['option_id'] }}', {{ $feature['id'] }})" wire:key="option-{{ $feature['option_id'] }}-feature-{{ $feature['id'] }}">
                                                     {{ $feature['value'] }}
                                                 </button>
                                                 @break
                                             @case(2)
-                                                <div class="p-0.5 border-2 rounded-lg flex items-center -mt-1.5 {{ $selectedFeatures[$option->id] ==  $feature['id'] ? 'border-[#FEC51C]' : 'border-transparent' }}">
+                                                <div class="p-0.5 border-2 rounded-lg flex items-center -mt-1.5 {{ $selectedFeatures[$feature['option_id']] ==  $feature['id'] ? 'border-[#FEC51C]' : 'border-transparent' }}">
                                                     <button class="w-20 h-8 rounded-lg"
-                                                        wire:click="$set('selectedFeatures.{{ $option->id }}', {{ $feature['id'] }} )"
+                                                        wire:click="$set('selectedFeatures.{{ $feature['option_id'] }}', {{ $feature['id'] }} )"
                                                         style="background-color: {{$feature['value']}}"
-                                                        wire:key="option-{{$option->id}}-feature-{{ $feature['id'] }}">
+                                                        wire:key="option-{{ $feature['option_id'] }}-feature-{{ $feature['id'] }}">
                                                     </button>
                                                 </div>
                                                 @break
@@ -89,8 +89,7 @@
                             </ul>
 
                         </div>
-                        @endforeach
-                        {{-- @dump($selectedFeatures) --}}
+                    @endforeach
                 </div>
 
                 <button class="btn btn-blue w-full mb-7"

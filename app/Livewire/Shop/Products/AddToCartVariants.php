@@ -3,6 +3,7 @@
 namespace App\Livewire\Shop\Products;
 
 use App\Models\Feature;
+use App\Models\Variant;
 use App\Traits\Admin\sweetAlerts;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
@@ -17,14 +18,25 @@ class AddToCartVariants extends Component
 
     public $qty = 1;
 
+    public $variants;
+    public $availableOptions;
     public $selectedFeatures = [];
 
     public function mount()
     {
-        foreach($this->product->options as $option) {
-            $features = collect($option->pivot->features);
+        $this->variants = Variant::where('product_id', $this->product->id)
+            ->with('features.option')
+        ->get();
 
-            $this->selectedFeatures[$option->id] = $features->first()['id'];
+        $groupedOptions = $this->variants->flatMap(fn($variant) => $variant->features)
+            ->groupBy(fn($feature) => $feature->option->id)
+            ->map(fn($group) => $group->sortBy(fn($feature) => $feature->option->order));
+
+        $this->availableOptions = $groupedOptions;
+
+        foreach ($groupedOptions as $optionId  => $features) {
+            $firstFeature = $features->first();
+            $this->selectedFeatures[$firstFeature['option_id']] = $firstFeature['id'];
         }
     }
     
@@ -53,7 +65,7 @@ class AddToCartVariants extends Component
         ]);
 
         if (Auth::check()) {
-            Cart::store(auth()->id);
+            Cart::store(Auth::user()->id);
         }
 
         $this->dispatch('cartUpdated', Cart::count());

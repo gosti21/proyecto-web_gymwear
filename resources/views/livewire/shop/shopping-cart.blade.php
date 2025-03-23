@@ -17,7 +17,9 @@
                     <ul class="space-y-4">
                         @foreach (Cart::content() as $item)
                             <li class="lg:flex lg:items-center">
-                                <img class="w-full lg:w-28 aspect-square object-cover object-center mr-6" src="{{Storage::url($item->options['image'])}}" alt="">
+                                <a href="{{ route('products.show', $item->id) }}">
+                                    <img class="w-full lg:w-28 aspect-square object-cover object-center mr-6" src="{{Storage::url($item->options['image'])}}" alt="">
+                                </a>
                                 <div class="w-80">
                                     <p class="text-lg dark:text-gray-100 text-gray-900">
                                         <a href="{{ route('products.show', $item->id) }}">
