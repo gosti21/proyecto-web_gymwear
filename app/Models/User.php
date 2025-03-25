@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -27,6 +29,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
         'email',
         'password',
     ];
@@ -63,5 +66,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function phones(): MorphOne
+    {
+        return $this->morphOne(Phone::class, 'phoneable');
+    }
+    
+    public function documents(): MorphOne
+    {
+        return $this->morphOne(DocumentType::class, 'documentable');
+    }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class)->chaperone();
     }
 }

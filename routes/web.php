@@ -4,6 +4,7 @@ use App\Http\Controllers\Shop\CartController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\FamilyController;
 use App\Http\Controllers\Shop\ProductController;
+use App\Http\Controllers\Shop\ShippingController;
 use App\Http\Controllers\Shop\SubCategoryController;
 use App\Http\Controllers\Shop\WelcomeController;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -17,6 +18,8 @@ Route::get('subcategories/{subcategory}', [SubCategoryController::class, 'show']
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+
+Route::get('shipping', [ShippingController::class, 'index'])->name('shipping.index');
 
 Route::get('prueba', function(){
     Cart::instance('shopping');

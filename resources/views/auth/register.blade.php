@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <x-authentication-card>
+    <x-authentication-card width="sm:max-w-2xl">
         <x-slot name="logo">
             <x-authentication-card-logo />
         </x-slot>
@@ -9,28 +9,62 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {{-- Nombres --}}
+                <div>
+                    <x-label for="name" value="{{ __('Name') }}" />
+                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                </div>
+                
+                {{-- Apellidos --}}
+                <div>
+                    <x-label for="last_name" value="Apellidos" />
+                    <x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autocomplete="last_name" />
+                </div>
+    
+                {{-- Tipo de documento --}}
+                <div>
+                    <x-label for="document_type" value="Tipo de documento" />
+                    <x-select class="w-full mt-1" id="document_type" name="document_type">
+                        @foreach (\App\Enums\TypeOfDocuments::cases() as $docsType)
+                            <option value="{{ $docsType->value }}" @selected(old('document_type') == $docsType->value)>
+                                {{ $docsType->label() }}
+                            </option>
+                        @endforeach
+                    </x-select>
+                </div>
 
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
+                {{-- Numero de documento --}}
+                <div>
+                    <x-label for="document_number" value="N° de documento" />
+                    <x-input id="document_number" class="block mt-1 w-full" name="document_number" :value="old('document_number')" required />
+                </div>
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                {{-- Correo electrónico  --}}
+                <div>
+                    <x-label for="email" value="{{ __('Email') }}" />
+                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                </div>
+                
+                {{-- Teléfono --}}
+                <div>
+                    <x-label for="phone" value="Teléfono" />
+                    <x-input id="phone" class="block mt-1 w-full" type="number" name="phone" :value="old('phone')" required />
+                </div>
+    
+                <div>
+                    <x-label for="password" value="{{ __('Password') }}" />
+                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                </div>
+    
+                <div>
+                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                </div>
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
+                <div>
                     <x-label for="terms">
                         <div class="flex items-center">
                             <x-checkbox name="terms" id="terms" required />
