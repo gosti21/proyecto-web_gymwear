@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Shop\CartController;
 use App\Http\Controllers\Shop\CategoryController;
+use App\Http\Controllers\Shop\CheckoutController;
 use App\Http\Controllers\Shop\FamilyController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\ShippingController;
 use App\Http\Controllers\Shop\SubCategoryController;
 use App\Http\Controllers\Shop\WelcomeController;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
@@ -21,11 +23,11 @@ Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::get('shipping', [ShippingController::class, 'index'])->name('shipping.index');
 
-Route::get('prueba', function(){
-    Cart::instance('shopping');
-
-    return Cart::content();
-});
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('checkout/paid', [CheckoutController::class, 'paid'])->name('checkout.paid')->withoutMiddleware([ValidateCsrfToken::class]);
+Route::get('thanks', function(){
+    return view('shop.thanks');
+})->name('thanks');
 
 Route::middleware([
     'auth:sanctum',
