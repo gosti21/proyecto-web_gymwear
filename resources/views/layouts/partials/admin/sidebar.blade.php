@@ -7,6 +7,9 @@
             'active' => request()->routeIs('admin.dashboard')
         ], 
         [
+            'header' => 'Administrar página'
+        ],
+        [
             'name' => 'Opciones',
             'icon' => 'fa-solid fa-gear',
             'route' => route('admin.options.index'),
@@ -43,6 +46,15 @@
             'route' => route('admin.covers.index'),
             'active' => request()->routeIs('admin.covers.*')
         ], 
+        [
+            'header' => 'Ordenes y envío' 
+        ],
+        [
+            'name' => 'Órdenes y envíos',
+            'icon' => 'fa-solid fa-cart-shopping',
+            'route' => route('admin.orders.index'),
+            'active' => request()->routeIs('admin.orders.*')
+        ], 
     ];   
 @endphp
 
@@ -56,19 +68,25 @@
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
             @foreach ($links as $link)
-                @php
-                    $activeClass = $link['active'] ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : '';   
-                @endphp
                 <li>
-                    <a href="{{$link['route']}}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {{ $activeClass }}">
-                        <span class=" inline-flex w-6 h-6 justify-center items-center">
-                            <i class="{{$link['icon']}} text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white {{ $activeClass }}"></i>
-                        </span>
-                        <span class="ms-2">
-                            {{$link['name']}}
-                        </span>
-                    </a>
+                    @isset($link['header'])
+                        <div class="px-3 py-2 text-xs font-semibold dark:text-gray-300 text-gray-700 uppercase">
+                            {{ $link['header'] }}
+                        </div>
+                    @else
+                        @php
+                            $activeClass = $link['active'] ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : '';   
+                        @endphp
+                        <a href="{{$link['route']}}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {{ $activeClass }}">
+                            <span class=" inline-flex w-6 h-6 justify-center items-center">
+                                <i class="{{$link['icon']}} text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white {{ $activeClass }}"></i>
+                            </span>
+                            <span class="ms-2">
+                                {{$link['name']}}
+                            </span>
+                        </a>
+                    @endisset
                 </li>
             @endforeach
         </ul>

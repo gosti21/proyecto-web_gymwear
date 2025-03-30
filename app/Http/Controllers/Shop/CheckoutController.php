@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
+use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class CheckoutController extends Controller
@@ -86,7 +89,23 @@ class CheckoutController extends Controller
         ]);
 
         if(isset($response['dataMap']) && ($response['dataMap']['ACTION_CODE'] == '000')){
-            return redirect()->route('thanks');
+
+            $address = Address::where('user_id', Auth::user()->id)
+                ->where('default', true)
+                ->first();
+
+            $order = Order::create([
+                'user_id' => Auth::user()->id,
+                'content' => Cart::instance('shopping')->content(),
+                'address' => $address,
+                'payment_id' => $response['dataMap']['TRANSACTION_ID'],
+                'total' => Cart::instance('shopping')->subtotal() + 15,
+            ]);
+            
+            Cart::destroy();
+            
+            return redirect()->route('thanks')->with('order', $order);
+
         }
 
         return redirect()->route('checkout.index');

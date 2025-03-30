@@ -8,7 +8,6 @@ use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\ShippingController;
 use App\Http\Controllers\Shop\SubCategoryController;
 use App\Http\Controllers\Shop\WelcomeController;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +27,21 @@ Route::post('checkout/paid', [CheckoutController::class, 'paid'])->name('checkou
 Route::get('thanks', function(){
     return view('shop.thanks');
 })->name('thanks');
+
+/* Route::get('prueba', function(){
+    $order = Order::first();
+
+    $pdf = Pdf::loadView('shop.orders.ticket', compact('order'))->setPaper('a5');
+    
+    $pdf->save(storage_path('app/public/tickets/ticket-' . $order->id . '.pdf'));
+
+    $order->pdf_path = 'tickets/ticket-' . $order->id . '.pdf';
+    $order->save();
+
+    return "ticket correctamente creado";
+
+    return view('shop.orders.ticket', compact('order'));
+}); */
 
 Route::middleware([
     'auth:sanctum',

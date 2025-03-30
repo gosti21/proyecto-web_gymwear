@@ -2,7 +2,8 @@
     <div class="mt-7 mx-auto max-w-96   ">
         @if (session('niubiz'))
             @php
-                $response = session('niubiz')['response']
+                $response = session('niubiz')['response'];
+                $order = session('order');
             @endphp
             <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                 <i class="fa-solid fa-check shrink-0 inline me-3"></i>
@@ -30,6 +31,7 @@
                         {{ $response['order']['amount'] }} {{ $response['order']['currency'] }}
                     </p>
                 </div>
+                <a href="{{ Storage::url($order->pdf_path) }}" target="_blank" class="underline hover:no-underline">Ver ticket</a>
             </div>
         @endif
         <img class="w-full" src="https://i.pinimg.com/736x/96/99/0e/96990eedfd4494b79adf35d5d1a9044c.jpg" alt="thanks">

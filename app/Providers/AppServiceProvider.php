@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Cover;
+use App\Models\Order;
 use App\Observers\CoverObserver;
+use App\Observers\OrderObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Cover::observe(CoverObserver::class);
+        Order::observe(OrderObserver::class);
     }
 }

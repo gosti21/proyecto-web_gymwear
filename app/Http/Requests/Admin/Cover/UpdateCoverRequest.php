@@ -29,7 +29,6 @@ class UpdateCoverRequest extends FormRequest
             'title' => [
                 'required',
                 'string',
-                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
                 'between:3,80',
                 Rule::unique('covers', 'title')
                     ->where(fn($query) => $query->where('title', $this->title))

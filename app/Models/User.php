@@ -68,18 +68,23 @@ class User extends Authenticatable
         ];
     }
 
-    public function phones(): MorphOne
+    public function addresses(): HasMany
     {
-        return $this->morphOne(Phone::class, 'phoneable');
+        return $this->hasMany(Address::class)->chaperone();
     }
-    
+
     public function documents(): MorphOne
     {
         return $this->morphOne(DocumentType::class, 'documentable');
     }
 
-    public function addresses(): HasMany
+    public function phones(): MorphOne
     {
-        return $this->hasMany(Address::class)->chaperone();
+        return $this->morphOne(Phone::class, 'phoneable');
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class)->chaperone();
     }
 }

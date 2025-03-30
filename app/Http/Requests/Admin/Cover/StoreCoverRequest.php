@@ -26,7 +26,6 @@ class StoreCoverRequest extends FormRequest
             'title' => [
                 'required',
                 'string',
-                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
                 'between:3,80',
                 'unique:covers,title'
             ],
