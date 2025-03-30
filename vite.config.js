@@ -8,4 +8,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        https: true, // 🔹 Habilita HTTPS para evitar Mixed Content
+        host: 'onlyhome-bpric.ondigitalocean.app', // 🔹 Usa tu dominio
+        hmr: {
+            host: 'onlyhome-bpric.ondigitalocean.app',
+            protocol: 'wss', // 🔹 WebSockets seguros
+        },
+    },
 });
