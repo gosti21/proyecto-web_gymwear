@@ -7,11 +7,19 @@ use App\Models\Address;
 use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
-class CheckoutController extends Controller
+class CheckoutController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'auth',
+        ];
+    }
+
     public function index()
     {
         $accesToken = $this->generateAccessToken();

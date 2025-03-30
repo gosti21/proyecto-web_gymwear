@@ -20,7 +20,9 @@ Route::get('products/{product}', [ProductController::class, 'show'])->name('prod
 
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
-Route::get('shipping', [ShippingController::class, 'index'])->name('shipping.index');
+Route::get('shipping', [ShippingController::class, 'index'])
+->middleware('auth')    
+->name('shipping.index');
 
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('checkout/paid', [CheckoutController::class, 'paid'])->name('checkout.paid')->withoutMiddleware([ValidateCsrfToken::class]);
