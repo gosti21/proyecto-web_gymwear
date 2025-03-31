@@ -30,21 +30,6 @@ Route::get('thanks', function(){
     return view('shop.thanks');
 })->name('thanks');
 
-/* Route::get('prueba', function(){
-    $order = Order::first();
-
-    $pdf = Pdf::loadView('shop.orders.ticket', compact('order'))->setPaper('a5');
-    
-    $pdf->save(storage_path('app/public/tickets/ticket-' . $order->id . '.pdf'));
-
-    $order->pdf_path = 'tickets/ticket-' . $order->id . '.pdf';
-    $order->save();
-
-    return "ticket correctamente creado";
-
-    return view('shop.orders.ticket', compact('order'));
-}); */
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

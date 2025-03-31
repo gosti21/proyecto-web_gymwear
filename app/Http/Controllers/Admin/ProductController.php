@@ -3,9 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Repositories\Admin\ProductRepository;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ProductController extends BaseAdminController
+class ProductController extends BaseAdminController implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('can:manage products'),
+        ];
+    }
+
     protected $productRepository;
 
     public function __construct(ProductRepository $productRepository)

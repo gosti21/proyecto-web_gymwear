@@ -50,7 +50,7 @@
             'header' => 'Ordenes y envío' 
         ],
         [
-            'name' => 'Órdenes y envíos',
+            'name' => 'Órdenes',
             'icon' => 'fa-solid fa-cart-shopping',
             'route' => route('admin.orders.index'),
             'active' => request()->routeIs('admin.orders.*')

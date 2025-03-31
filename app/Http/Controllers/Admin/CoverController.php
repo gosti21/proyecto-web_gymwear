@@ -4,9 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Repositories\Admin\CoverRepository;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class CoverController extends BaseAdminController
+class CoverController extends BaseAdminController implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('can:manage covers'),
+        ];
+    }
+
     protected $coverRepository;
 
     public function __construct(CoverRepository $coverRepository)
