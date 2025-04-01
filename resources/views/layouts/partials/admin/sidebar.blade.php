@@ -7,6 +7,12 @@
             'active' => request()->routeIs('admin.dashboard')
         ], 
         [
+            'name' => 'Usuarios',
+            'icon' => 'fa-solid fa-users',
+            'route' => route('admin.users.index'),
+            'active' => request()->routeIs('admin.users.*')
+        ], 
+        [
             'header' => 'Administrar página'
         ],
         [

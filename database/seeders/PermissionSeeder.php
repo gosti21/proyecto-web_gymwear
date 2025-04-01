@@ -15,6 +15,7 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             'access dashboard',
+            'manage users',
             'manage options',
             'manage families',
             'manage categories',

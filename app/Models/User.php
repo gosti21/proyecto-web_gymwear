@@ -70,6 +70,29 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Filtrar usuarios por empleados y clientes
+     */
+    public function scopeSelectRole($query, $selectBy)
+    {
+        $query->when($selectBy == 1, function ($query) {
+            $query->doesntHave('roles');
+        })
+        ->when($selectBy == 2, function ($query) {
+            $query->whereHas('roles', function ($query) {
+                $query->where('name', 'admin');
+            });
+        });
+    }
+
+    public function scopeSearch($query, $search){
+        $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+            $query->orWhere('last_name', 'like', '%' . $search . '%');
+            $query->orWhere('email', 'like', '%' . $search . '%');
+        });
+    }
+
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class)->chaperone();

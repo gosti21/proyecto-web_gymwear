@@ -7,12 +7,15 @@ use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VariantController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
     return view('admin.dashboard');
 })->middleware('can:access dashboard')->name('dashboard');
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::get('/options', [OptionController::class, 'index'])->name('options.index');
 

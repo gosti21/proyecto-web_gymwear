@@ -30,6 +30,13 @@ Route::get('thanks', function(){
     return view('shop.thanks');
 })->name('thanks');
 
+Route::get('/legal/terms-and-conditions', function (){
+    return view('shop.terms-and-conditions');
+})->name('legal.terms-and-conditions');
+Route::get('/legal/privacy-policy', function (){
+    return view('shop.privacy-policy');
+})->name('legal.privacy-policy');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
