@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\FamilyController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ShipmentController;
+use App\Http\Controllers\Admin\ShippingCompanyController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VariantController;
@@ -36,4 +38,6 @@ Route::match(['put', 'patch'], '/products/{product}/variants/{variant}', [Varian
 
 Route::resource('covers', CoverController::class);
 
+Route::resource('shipping-companies', ShippingCompanyController::class);
 Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+Route::get('shipments', [ShipmentController::class, 'index'])->name('shipments.index');

@@ -32,6 +32,9 @@ class ShippingAddresses extends Component
 
     public function store()
     {
+        if(count($this->addresses) == 0){
+            $this->dispatch('addressAdded');
+        }
         $this->createAddress->save();
         $this->addresses = Address::where('user_id', Auth::user()->id)->get();
         $this->newAddress = false;
@@ -57,6 +60,9 @@ class ShippingAddresses extends Component
 
         if($this->addresses->where('default', true)->count() == 0 && $this->addresses->count() > 0){
             $this->addresses->first()->update(['default' => true]);
+        }
+        if(!count($this->addresses)){
+            $this->dispatch('addressDelete');
         }
     }
 

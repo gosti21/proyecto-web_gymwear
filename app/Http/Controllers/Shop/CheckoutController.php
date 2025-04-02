@@ -110,7 +110,11 @@ class CheckoutController extends Controller implements HasMiddleware
                 'total' => Cart::instance('shopping')->subtotal() + 15,
             ]);
             
+            Cart::instance('shopping');
             Cart::destroy();
+            if (Auth::check()) {
+                Cart::store(Auth::user()->id);
+            }
             
             return redirect()->route('thanks')->with('order', $order);
 

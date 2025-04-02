@@ -15,11 +15,20 @@ class UserSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Williams',
-            'last_name' => 'Adm',
-            'email' => 'prueba@gmail.com',
+        $user = User::factory()->create([
+            'name' => 'Bettzi Yasvir',
+            'last_name' => 'Perez Perez ',
+            'email' => 'bettzi-perez@gmail.com',
             'password' => bcrypt('12345678'),
+        ]);
+
+        $user->documents()->create([
+            'document_type' => strtoupper('DNI'),
+            'document_number' => '48969246',
+        ]);
+        
+        $user->phones()->create([
+            'number' => '937366147',
         ]);
     }
 }

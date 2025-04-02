@@ -22,7 +22,9 @@ class PermissionSeeder extends Seeder
             'manage subcategories',
             'manage products',
             'manage covers',
+            'manage couriers',
             'manage orders',
+            'manage shipments',
         ];
 
         foreach ($permissions as $permission){

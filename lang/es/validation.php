@@ -281,6 +281,7 @@ return [
         'family_id'                => 'familia',
         'start_at'                 => 'fecha de inicio',
         'end_at'                   => 'fecha de fin',
+        'reference'                => 'referencia',
     ],
     'custom' => [
         'name' => [

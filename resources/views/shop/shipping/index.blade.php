@@ -42,22 +42,46 @@
 
                         <hr class="my-4">
 
+                        <div class="flex justify-between mb-2">
+                            <p>
+                                Precio de envío
+                                <i class="fas fa-info-circle ml-1"
+                                title="El precio del envío es de S/. 15.00"></i>
+                            </p>
+
+                            <p class="font-semibold">
+                                S/. 15.00
+                            </p>
+                        </div>
                         <div class="flex justify-between">
                             <p class="text-lg">
                                 Total
                             </p>
 
                             <p class="font-semibold">
-                                S/. {{Cart::subtotal()}}
+                                S/. {{Cart::subtotal() + 15}}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <a href="{{ route('checkout.index') }}" class="btn btn-blue w-full block text-center">
+                <a href="{{ route('checkout.index') }}" class="btn btn-blue w-full block text-center {{ count(Auth::user()->addresses) ? '' : 'cursor-not-allowed opacity-50' }}" id="nextButton">
                     Siguiente
                 </a>
             </div>
         </div>
     </x-container>
+    @push('js')
+        <script>
+            Livewire.on('addressAdded', () => {
+                const button = document.getElementById('nextButton');
+                button.classList.remove('cursor-not-allowed', 'opacity-50');
+            });
+
+            Livewire.on('addressDelete', () => {
+                const button = document.getElementById('nextButton');
+                button.classList.add('cursor-not-allowed', 'opacity-50');
+            });
+        </script>
+    @endpush
 </x-app-layout>

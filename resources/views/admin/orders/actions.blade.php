@@ -6,14 +6,29 @@
             </button>
             @break
         @case(\App\Enums\OrderStatus::Alistando)
-            <button class="underline text-blue-500 hover:no-underline">
+            <button wire:click="assignShippingCompany({{ $order->id }})" 
+                class="underline text-blue-500 hover:no-underline">
+                Enviar producto
+            </button>
+            @break
+        @case(\App\Enums\OrderStatus::Fallido)
+            <button wire:click="markAsRefunded({{ $order->id }})" 
+                class="underline text-blue-500 hover:no-underline">
+                Marcar como devuelto
+            </button>
+            @break
+        @case(\App\Enums\OrderStatus::Devuelto)
+            <button wire:click="assignShippingCompany({{ $order->id }})" 
+                class="underline text-blue-500 hover:no-underline">
                 Enviar producto
             </button>
             @break
         @default
-            
     @endswitch
-    <button class="underline text-red-500 hover:no-underline">
-        Cancelar
-    </button>
+    @if ($order->status != \App\Enums\OrderStatus::Cancelado && $order->status != \App\Enums\OrderStatus::Recibido)
+        <button class="underline text-red-500 hover:no-underline"
+            wire:click="cancelOrder({{ $order->id }})" wire:key="cancel">
+            Cancelar
+        </button>
+    @endif
 </div>

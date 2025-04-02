@@ -29,7 +29,7 @@
                                 </div>
                             </li>
 
-                            <li>
+                            {{-- <li>
                                 <label class="p-4 flex items-center">
                                     <x-radio value="2" x-model="pago"></x-radio>
                                     <span class="ml-2">
@@ -52,7 +52,7 @@
                                         </p>
                                     </div>
                                 </div>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
