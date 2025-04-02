@@ -11,7 +11,7 @@
                 <section>
                     <h3 class="mt-4">1. Introducción</h3>
                     <p>
-                        Bienvenido a Only Home. Al acceder y utilizar este sitio web, aceptas los siguientes Términos y Condiciones. Si no estás de acuerdo con estos términos, por favor no utilices nuestro sitio.
+                        Bienvenido a GYMWEAR. Al acceder y utilizar este sitio web, aceptas los siguientes Términos y Condiciones. Si no estás de acuerdo con estos términos, por favor no utilices nuestro sitio.
                     </p>
                 </section>
                 <section>
@@ -19,7 +19,7 @@
                         2. Descripción de la Empresa
                     </h3>
                     <p>
-                        Only Home se especializa en la venta de adornos decorativos exclusivos e importados desde Europa y Oriente, así como muebles de alta calidad. Nuestros productos están enfocados en embellecer hogares y oficinas, ofreciendo artículos como sofás, mesas de comedor y otros artículos decorativos.
+                        GYMWEAR se especializa en la venta de suplementos para la mejora del cuerpo exclusivos e importados desde Europa y Oriente, así como muebles de alta calidad.
                     </p>
                 </section>
                 <section>

@@ -17,7 +17,7 @@
                 <a href="{{ route('admin.dashboard') }}" class="flex ms-2 md:me-24">
                     <img src="{{ asset('assets/img/logo.png') }}" class="h-8 me-3" alt="logo empresa" />
                     <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Only Home</span>
+                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">GymWear</span>
                 </a>
             </div>
             <div class="flex items-center">

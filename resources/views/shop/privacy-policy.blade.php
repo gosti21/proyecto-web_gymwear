@@ -11,7 +11,7 @@
                 <section>
                     <h3 class="mt-4">1. Introducción</h3>
                     <p>
-                        En Only Home, tu privacidad es muy importante para nosotros. Esta Política de Privacidad describe cómo recopilamos, usamos, protegemos y compartimos la información personal que nos proporcionas al utilizar nuestro sitio web y servicios.
+                        En GYMWEAR, tu privacidad es muy importante para nosotros. Esta Política de Privacidad describe cómo recopilamos, usamos, protegemos y compartimos la información personal que nos proporcionas al utilizar nuestro sitio web y servicios.
                     </p>
                 </section>
                 <section>

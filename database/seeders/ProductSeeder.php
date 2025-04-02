@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
     {
         Storage::deleteDirectory('products');
 
-        Product::factory(60)->create();
+        Product::factory(30)->create();
 
         $products = Product::all();
 

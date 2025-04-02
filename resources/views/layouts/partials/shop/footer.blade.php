@@ -22,13 +22,13 @@
         </div>
         <hr class="my-6 sm:mx-auto border-gray-700 lg:my-8" />
         <div class="sm:flex sm:items-center sm:justify-between">
-            <span class="text-sm text-gray-600 sm:text-center">© 2025 <a href="/" class="hover:underline">Only Home</a>. All Rights Reserved.
+            <span class="text-sm text-gray-600 sm:text-center">© 2025 <a href="/" class="hover:underline">gymwear</a>. All Rights Reserved.
             </span>
             <div class="flex mt-4 sm:justify-center sm:mt-0">
-                <a href="https://www.facebook.com/OnlyHomeBettsy" target="__blank" class="text-gray-600 hover:text-white">
+                <a href="https://www.facebook.com/gymwear" target="__blank" class="text-gray-600 hover:text-white">
                     <i class="fa-brands fa-facebook-f"></i>
                 </a>
-                <a href="https://www.instagram.com/onlyhome5/" target="__blank" class="text-gray-600 hover:text-white ms-5">
+                <a href="https://www.instagram.com/gymwear  /" target="__blank" class="text-gray-600 hover:text-white ms-5">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
             </div>

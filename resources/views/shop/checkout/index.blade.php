@@ -46,7 +46,7 @@
                                         <p>- Razón social: Only Home</p>
                                         <p>- RUC: 134859848</p>
                                         <p>1. Pago por Yape:</p>
-                                        <p>- Yapea al número: 9856123456 (Only Home)</p>
+                                        <p>- Yapea al número: 9856123456 (GYMWEAR)</p>
                                         <p>
                                             Enviar el comprobante de pago a 9856123456
                                         </p>

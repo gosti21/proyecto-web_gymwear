@@ -12,7 +12,7 @@
                 <h1 class="text-black">
                     <a href="/" class="inline-flex flex-col items-end">
                         <span class="text-2xl  md:text-3xl leading-6 font-semibold">
-                            Only Home
+                            GYMWEAR
                         </span>
                     </a>
                 </h1>
